@@ -1,3 +1,7 @@
+# Whiting's first test commit
+
+
+
 # Project Template: React/Rails API
 
 ## Description
