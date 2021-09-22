@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom" 
-import LogIn from './LogIn';
-import SignUp from './SignUp'; 
-import Home from './Home'
+import LogIn from './components/LogIn';
+import SignUp from './components/SignUp'; 
+import Home from './components/Home'
 import { useState, useEffect } from 'react'
 
 
@@ -15,24 +15,23 @@ useEffect(() => {
     if (r.ok){
       r.json().then((user) => {
         setUser(user);
-        console.log(user)
       });
     }
   })
-})
+}, [])
 
   return (
     <>
     <Router>
       <Switch>
           <Route exact path='/'>
-            <Home />
+            <Home user={user} setUser={setUser}/>
           </Route>
             <Route path='/signup'>
-              <SignUp/>
+              <SignUp setUser={setUser} user={user}/>
             </Route>
           <Route path='/login'>
-            <LogIn/>
+            <LogIn setUser={setUser} user={user}/>
           </Route>
       </Switch>
     </Router>

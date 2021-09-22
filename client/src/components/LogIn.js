@@ -12,13 +12,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useHistory} from 'react-router-dom'
+
 
 function Copyright(props) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
+      {'Created by '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        Whiting Tennis
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -28,15 +30,30 @@ function Copyright(props) {
 
 const theme = createTheme();
 
-export default function LogIn() {
+export default function LogIn({ setUser, user }) {
+  const history = useHistory()
+
+  if (user){
+    history.push('/')
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const username = data.get('username')
+    const password = data.get('password')
+   
+    fetch('/login', { 
+      method: 'POST', 
+      headers: {
+        "Content-Type":"application/json",
+      },
+      body: JSON.stringify({ username, password })
+      }).then((r) => {
+        if(r.ok){
+          r.json().then((user) => setUser(user));
+          };
+      });
   };
 
   return (
@@ -62,10 +79,10 @@ export default function LogIn() {
               margin="normal"
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
+              id="username"
+              label="Username"
+              name="username"
+              autoComplete="username"
               autoFocus
             />
             <TextField
@@ -97,7 +114,7 @@ export default function LogIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
