@@ -1,24 +1,42 @@
-import bat_logo from './bat_logo.png';
-import './App.css';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom" 
+import LogIn from './LogIn';
+import SignUp from './SignUp'; 
+import Home from './Home'
+import { useState, useEffect } from 'react'
+
 
 function App() {
+const [user, setUser] = useState(false)
+
+
+useEffect(() => {
+  fetch('/me')
+  .then(r=> {
+    if (r.ok){
+      r.json().then((user) => {
+        setUser(user);
+        console.log(user)
+      });
+    }
+  })
+})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={bat_logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <Router>
+      <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+            <Route path='/signup'>
+              <SignUp/>
+            </Route>
+          <Route path='/login'>
+            <LogIn/>
+          </Route>
+      </Switch>
+    </Router>
+    </>
   );
 }
 
