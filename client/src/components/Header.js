@@ -19,7 +19,6 @@ function Header({ user, setUser }){
         })
     };
 
-
 return (
 <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

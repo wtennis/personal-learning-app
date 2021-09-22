@@ -29,7 +29,7 @@ function Copyright(props) {
   );
 }
 
-export default function SignUp({ user }) {
+export default function SignUp({ user, setUser }) {
   const history = useHistory()
 
   if (user){
@@ -39,13 +39,27 @@ export default function SignUp({ user }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    const username = data.get('username')
-    const password = data.get('password')
+      const username = data.get('username')
+      const password = data.get('password')
+      const passwordConfirmation = data.get('passwordConfirmation')
+      const email = data.get('email')
 
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    fetch('/signup', 
+      {method: 'POST', 
+      headers: {
+        "Content-Type":"application/json"
+      },
+      body: JSON.stringify({ 
+        username, 
+        password, 
+        password_confirmation: passwordConfirmation,
+        email
+      })
+      }).then(r=> {
+            if(r.ok){
+              r.json().then(user=> setUser(user))
+            };
+        });
   };
 
   return (
@@ -71,10 +85,10 @@ export default function SignUp({ user }) {
               <Grid item xs={12} sm={6}>
                 <TextField
                   autoComplete="username"
-                  name="userName"
+                  name="username"
                   required
                   fullWidth
-                  id="userName"
+                  id="username"
                   label="Username"
                   autoFocus
                 />
