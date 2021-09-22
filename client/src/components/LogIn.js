@@ -42,11 +42,7 @@ export default function LogIn({ setUser, user }) {
     const data = new FormData(event.currentTarget);
     const username = data.get('username')
     const password = data.get('password')
-    // eslint-disable-next-line no-console
-    console.log({
-      username: username,
-      password: password,
-    });
+   
     fetch('/login', { 
       method: 'POST', 
       headers: {

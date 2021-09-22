@@ -28,7 +28,7 @@ useEffect(() => {
             <Home user={user} setUser={setUser}/>
           </Route>
             <Route path='/signup'>
-              <SignUp user={user}/>
+              <SignUp setUser={setUser} user={user}/>
             </Route>
           <Route path='/login'>
             <LogIn setUser={setUser} user={user}/>
