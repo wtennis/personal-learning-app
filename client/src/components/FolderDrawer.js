@@ -15,12 +15,14 @@ import MailIcon from '@mui/icons-material/Mail';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom';
+import { useState } from 'react';
 
 
 function FolderDrawer({ user, setUser }){
     const drawerWidth = 240;
     const history = useHistory()
+    const [userData, setUserData] = useState(null)
 
     function handleLogOut(){
         fetch('/logout', {method: 'DELETE'})
@@ -116,6 +118,11 @@ return (
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
+        <Button color="primary">Display folders</Button>
+        <h4>
+            User data:
+        </h4>
+        <Typography>{userData}</Typography>
       </Box>
     </Box>
 );
