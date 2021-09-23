@@ -10,13 +10,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import LernList from './LernList';
-
+import Header from './Header';
 
 function FolderDrawer({ user, setUser }){
     const drawerWidth = 300;
@@ -37,41 +35,11 @@ function FolderDrawer({ user, setUser }){
         })
       }, [])
 
-
-    function handleLogOut(){
-        fetch('/logout', {method: 'DELETE'})
-        .then(() =>{
-            setUser(false);
-            history.push('/login');
-        })
-    };
-
-
 return (
     <>
     <Box sx={{ display: 'flex' }}>
     <CssBaseline />
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-            <Toolbar>
-            <IconButton
-                size="large"
-                edge="start"
-                color="inherit"
-                aria-label="menu"
-                sx={{ mr: 2 }}
-                >
-            <MenuIcon />
-          </IconButton>
-            <Typography variant="h6" noWrap component="div">
-                LERN
-            </Typography>
-              {user? 
-                <Button onClick={handleLogOut}color="inherit">Log out</Button>
-                  :
-                <Button href= "/login" color="inherit">Log in</Button>
-              }
-            </Toolbar>
-        </AppBar>
+    <Header user={user} setUser={setUser}/>
      <Drawer
         variant="permanent"
         sx={{
@@ -94,6 +62,7 @@ return (
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
+        <Typography variant="h4">{user? `Welcome, ${user.username}`: "This is Home. No user in session"}</Typography>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
