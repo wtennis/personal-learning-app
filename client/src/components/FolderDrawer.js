@@ -22,6 +22,7 @@ function FolderDrawer({ user, setUser }){
     const drawerWidth = 300;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
+    
 
 
     useEffect(() => {
@@ -88,7 +89,7 @@ return (
                 <ListItemText primary= 'FolderDrawer' />
               </ListItem>
           <Divider />
-          <LernList contents={topLevelData}/>
+          <LernList contents={topLevelData} paddingLeft={4}/>
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
