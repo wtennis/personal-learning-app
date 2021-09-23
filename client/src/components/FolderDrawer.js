@@ -19,9 +19,10 @@ import LernList from './LernList';
 
 
 function FolderDrawer({ user, setUser }){
-    const drawerWidth = 240;
+    const drawerWidth = 300;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
+    
 
 
     useEffect(() => {
@@ -64,11 +65,11 @@ return (
             <Typography variant="h6" noWrap component="div">
                 LERN
             </Typography>
-            {user? 
-            <Button onClick={handleLogOut}color="inherit">Log out</Button>
-            :
-            <Button href= "/login" color="inherit">Log in</Button>
-            }
+              {user? 
+                <Button onClick={handleLogOut}color="inherit">Log out</Button>
+                  :
+                <Button href= "/login" color="inherit">Log in</Button>
+              }
             </Toolbar>
         </AppBar>
      <Drawer
@@ -88,7 +89,7 @@ return (
                 <ListItemText primary= 'FolderDrawer' />
               </ListItem>
           <Divider />
-          <LernList contents={topLevelData}/>
+          <LernList contents={topLevelData} paddingLeft={4}/>
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
