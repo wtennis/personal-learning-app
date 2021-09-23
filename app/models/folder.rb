@@ -13,6 +13,10 @@ class Folder < ApplicationRecord
     Folder.where("NOT EXISTS(SELECT 1 from folder_contents where folders.id = folder_contents.contentsable_id)")
   end
 
+  def has_contents
+    self.nested_contents.length > 0
+    # is this best practice? ^^^ expensive query? 
+  end
 
 
 end
