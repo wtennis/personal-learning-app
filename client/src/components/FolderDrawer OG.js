@@ -15,15 +15,14 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
-import MainList from './MainList';
+import { useState, useEffect } from 'react';
 
 
 function FolderDrawer({ user, setUser }){
     const drawerWidth = 240;
     const history = useHistory()
-    const [topLevelData, setTopLevelData] = React.useState(null)
-
+    const [topLevelData, setTopLevelData] = useState(null)
+    const [contents, setContents] = useState(null)
 
     useEffect(() => {
         fetch('/folders')
@@ -31,7 +30,6 @@ function FolderDrawer({ user, setUser }){
           if (r.ok){
             r.json().then((folders) => {
               setTopLevelData(folders);
-              console.log(folders)
             });
           }
         })
@@ -46,6 +44,19 @@ function FolderDrawer({ user, setUser }){
         })
     };
 
+    function handleOpen(id){
+        console.log(`folder ${id} opened`)
+
+        fetch(`/folder_contents/${id}`)
+        .then(r=> {
+          if (r.ok){
+            r.json().then((res) => {
+              setContents(res);
+              console.log(res);
+            });
+          };
+        });
+    }
 
 return (
     <>
@@ -89,7 +100,20 @@ return (
                 <ListItemText primary= 'LERN' />
               </ListItem>
           <Divider />
-          <MainList topLevelData={topLevelData}/>
+          {topLevelData? 
+                <List>
+                    {topLevelData.map((folder, index) => (
+                    <ListItem onClick={()=>handleOpen(folder.id)}button key={folder.id}>
+                        <ListItemIcon>
+                        {folder.emoji}
+                        </ListItemIcon>
+                        <ListItemText primary={folder.name} />
+                    </ListItem>
+                    ))}
+                </List>
+                : 
+                null
+            }
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
