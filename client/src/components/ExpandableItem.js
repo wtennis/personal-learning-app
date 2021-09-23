@@ -7,10 +7,10 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 
-function ExpandableItem({ folder }){
+function ExpandableItem({ folder, paddingLeft }){
     const [open, setOpen] = useState(false);
     const [contents, setContents] = useState(null);
-
+    const [padding, setPadding] = useState(paddingLeft + 4)
 
     useEffect(() => {
         fetch(`/folder_contents/${folder.id}`)
@@ -30,7 +30,7 @@ function ExpandableItem({ folder }){
 
     return (
         <>
-        <ListItemButton onClick={handleClick} sx={{ pl: 4 }}>
+        <ListItemButton onClick={handleClick} sx={{ pl: paddingLeft }}>
                 <ListItemIcon>
                     {folder.emoji}
                 </ListItemIcon>
@@ -40,7 +40,7 @@ function ExpandableItem({ folder }){
             {open ? <ExpandLess /> : <ExpandMore />}
         </ListItemButton>
         <Collapse in={open} timeout="auto" unmountOnExit>
-            <LernList contents={contents}/>
+            <LernList contents={contents} paddingLeft ={padding}/>
         </Collapse>
         </>
     )
