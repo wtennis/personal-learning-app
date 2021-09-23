@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   
   # resources :notes
-  # resources :folder_contents
+  resources :folder_contents, only: :show
   # resources :resources
-  # resources :folders
+  resources :folders, only: :index
   # resources :users
 
 
