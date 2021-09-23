@@ -1,8 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom" 
 import LogIn from './components/LogIn';
 import SignUp from './components/SignUp'; 
-import FolderDrawer from './components/FolderDrawer'; 
-
 import Home from './components/Home'
 import { useState, useEffect } from 'react'
 
@@ -34,9 +32,6 @@ useEffect(() => {
             </Route>
           <Route path='/login'>
             <LogIn setUser={setUser} user={user}/>
-          </Route>
-          <Route path='/drawer'>
-            <FolderDrawer setUser={setUser} user={user}/>
           </Route>
       </Switch>
     </Router>
