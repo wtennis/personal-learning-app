@@ -4,4 +4,15 @@ class Folder < ApplicationRecord
 
   belongs_to :user
 
+  def nested_contents
+    arr = FolderContent.where(folder_id: self.id)
+    arr.map { |c| c.contentsable}
+  end
+
+  def self.top_levels
+    Folder.where("NOT EXISTS(SELECT 1 from folder_contents where folders.id = folder_contents.contentsable_id)")
+  end
+
+
+
 end

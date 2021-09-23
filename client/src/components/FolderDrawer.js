@@ -16,23 +16,51 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 function FolderDrawer({ user, setUser }){
     const drawerWidth = 240;
     const history = useHistory()
-    const [userData, setUserData] = useState(null)
+    const [topLevelData, setTopLevelData] = useState(null)
+    const [contents, setContents] = useState(null)
+
+    useEffect(() => {
+        fetch('/folders')
+        .then(r=> {
+          if (r.ok){
+            r.json().then((folders) => {
+              setTopLevelData(folders);
+            });
+          }
+        })
+      }, [])
+
 
     function handleLogOut(){
         fetch('/logout', {method: 'DELETE'})
         .then(() =>{
-            setUser(false)
-            history.push("/login")
+            setUser(false);
+            history.push('/login');
         })
     };
 
+    function handleOpen(id){
+        console.log(`folder ${id} opened`)
+
+        fetch(`/folder_contents/${id}`)
+        .then(r=> {
+          if (r.ok){
+            r.json().then((res) => {
+              setContents(res);
+              console.log(res);
+            });
+          };
+        });
+    }
+
 return (
+    <>
     <Box sx={{ display: 'flex' }}>
     <CssBaseline />
         <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
@@ -77,16 +105,20 @@ return (
             ))}
           </List>
           <Divider />
-          <List>
-            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+          {topLevelData? 
+                <List>
+                    {topLevelData.map((folder, index) => (
+                    <ListItem onClick={()=>handleOpen(folder.id)}button key={folder.id}>
+                        <ListItemIcon>
+                        {folder.emoji}
+                        </ListItemIcon>
+                        <ListItemText primary={folder.name} />
+                    </ListItem>
+                    ))}
+                </List>
+                : 
+                null
+            }
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
@@ -122,9 +154,9 @@ return (
         <h4>
             User data:
         </h4>
-        <Typography>{userData}</Typography>
       </Box>
     </Box>
+    </>
 );
 
 }
