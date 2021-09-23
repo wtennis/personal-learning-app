@@ -4,7 +4,6 @@ import Drawer from '@mui/material/Drawer';
 import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -16,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import MainList from './MainList';
+import LernList from './LernList';
 
 
 function FolderDrawer({ user, setUser }){
@@ -86,10 +85,10 @@ return (
                 <ListItemIcon>
                     <GraphicEqIcon />
                 </ListItemIcon>
-                <ListItemText primary= 'LERN' />
+                <ListItemText primary= 'FolderDrawer' />
               </ListItem>
           <Divider />
-          <MainList topLevelData={topLevelData}/>
+          <LernList contents={topLevelData}/>
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
