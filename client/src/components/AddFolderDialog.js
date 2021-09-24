@@ -30,8 +30,18 @@ export default function AddFolderDialog() {
     console.log(`Folder name: ${folderName}, emoji: ${emoji}, isPublic: ${isPublic}`)
     handleClose();
 
-    fetch('/folders')
-
+    fetch('/folders', { 
+      method: "POST", 
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: folderName,
+        emoji: emoji,
+        is_public: isPublic
+      })
+  })
+  .then(res => res.json());
   }
 
   const handleChange = (event) => {
