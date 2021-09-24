@@ -4,13 +4,18 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import { IconButton } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import EmojiSelect from './EmojiSelect';
+
+
 
 export default function AddFolderDialog() {
   const [open, setOpen] = React.useState(false);
+  const [isPublic, setIsPublic] = React.useState(false);
+  const [emoji, setEmoji] = React.useState('📁');
+  const [folderName, setFolderName] = React.useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -18,14 +23,22 @@ export default function AddFolderDialog() {
 
   const handleClose = () => {
     setOpen(false);
+    setEmoji('📁');
   };
 
   function handleCreate(){
-    console.log('create clicked')
-
-    
+    console.log(`Folder name: ${folderName}, emoji: ${emoji}, isPublic: ${isPublic}`)
     handleClose();
+
+    fetch('/folders')
+
   }
+
+  const handleChange = (event) => {
+    setIsPublic(event.target.checked);
+  };
+
+
 
   return (
     <div>
@@ -38,10 +51,18 @@ export default function AddFolderDialog() {
             autoFocus
             margin="dense"
             id="name"
+            value = {folderName}
+            onChange={(e)=> setFolderName(e.target.value)}
             label="Folder Name"
             fullWidth
             variant="standard"
           />
+          <EmojiSelect emoji={emoji} setEmoji={setEmoji}/>
+          <Checkbox
+            checked={isPublic}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />public
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
