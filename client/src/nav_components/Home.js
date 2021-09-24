@@ -17,7 +17,7 @@ import LernList from '../components/LernList';
 import Header from './Header';
 
 function Home({ user, setUser }){
-    const drawerWidth = 300;
+    const drawerWidth = 400;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
     
