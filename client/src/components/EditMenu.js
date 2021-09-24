@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
 import Divider from '@mui/material/Divider';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import NoteAddIcon from '@mui/icons-material/NoteAdd';
+import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
+import AddLinkIcon from '@mui/icons-material/AddLink';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -87,20 +87,24 @@ export default function EditMenu( { folder }) {
       >
         <MenuItem onClick={handleClose} disableRipple>
           <EditIcon />
-          Edit
+          Rename
         </MenuItem>
         <MenuItem onClick={handleClose} disableRipple>
-          <FileCopyIcon />
-          Duplicate
+          <NoteAddIcon />
+          Add Note
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <CreateNewFolderIcon />
+          Add Folder
+        </MenuItem>
+        <MenuItem onClick={handleClose} disableRipple>
+          <AddLinkIcon />
+          Add Resource
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleClose} disableRipple>
-          <ArchiveIcon />
-          Archive
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <MoreHorizIcon />
-          More
+          <DeleteIcon />
+          Delete
         </MenuItem>
       </StyledMenu>
     </div>
