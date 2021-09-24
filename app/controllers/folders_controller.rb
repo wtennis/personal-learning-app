@@ -8,6 +8,7 @@ class FoldersController < ApplicationController
     def destroy
         folder = Folder.find_by(id: params[:id])
         if folder
+          folder.destroy_nested
           folder.destroy
           head :no_content
         else
