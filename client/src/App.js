@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom" 
-import LogIn from './components/LogIn';
-import SignUp from './components/SignUp'; 
-import Home from './components/Home'
+import LogIn from './nav_components/LogIn';
+import SignUp from './nav_components/SignUp'; 
+import Home from './nav_components/Home'
 import { useState, useEffect } from 'react'
 
 

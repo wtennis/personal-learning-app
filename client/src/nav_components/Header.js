@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useHistory} from 'react-router-dom'
-import UseWindowDimensions from './UseWindowDimensions';
+import UseWindowDimensions from '../UseWindowDimensions';
 
 function Header({ user, setUser }){
     const history = useHistory()

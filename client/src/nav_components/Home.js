@@ -13,7 +13,7 @@ import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
-import LernList from './LernList';
+import LernList from '../components/LernList';
 import Header from './Header';
 
 function Home({ user, setUser }){
