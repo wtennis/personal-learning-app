@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import EditIcon from '@mui/icons-material/Edit';
@@ -8,8 +8,8 @@ import Divider from '@mui/material/Divider';
 import ArchiveIcon from '@mui/icons-material/Archive';
 import FileCopyIcon from '@mui/icons-material/FileCopy';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -52,8 +52,10 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditButton() {
+export default function EditMenu( { folder }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [editing, setEditing] = React.useState(false);
+
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -64,14 +66,15 @@ export default function EditButton() {
 
   return (
     <div>
-      <IconButton
-        aria-label="more"
-        id="long-button"
-        aria-controls="long-menu"
-        aria-expanded={open ? 'true' : undefined}
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
+      <IconButton onMouseOver={() => setEditing(true)} 
+                  onMouseLeave={() => setEditing(false)}
+                  onClick={handleClick}
+                  id="demo-customized-button"
+                  aria-controls="demo-customized-menu"
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  >
+          {editing || open? <MoreVertIcon/> : folder.emoji}
       </IconButton>
       <StyledMenu
         id="demo-customized-menu"
