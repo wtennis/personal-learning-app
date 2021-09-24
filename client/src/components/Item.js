@@ -1,20 +1,30 @@
 
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography'
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import ListItem from '@mui/material/ListItem';
+import { useState } from 'react';
 
 function Item({ folder, paddingLeft }){
+    const [editing, setEditing] = useState(false);
+
+      function handleEdit() {
+          console.log('edit click')
+      }
 
     return(
-        <ListItemButton sx={{ pl: paddingLeft }}>
-            <ListItemIcon>
-                {folder.emoji}
-            </ListItemIcon>
-            <Typography noWrap> 
-            {folder.name}
-            </Typography>
-        </ListItemButton>
+        <ListItem sx={{ pl: paddingLeft }}>
+                    <IconButton onMouseOver={() => setEditing(true)} 
+                                onMouseLeave={() => setEditing(false)}
+                                onClick={handleEdit}
+                                >
+                        {editing? <MoreVertIcon/> : folder.emoji}
+                    </IconButton>
+                <Typography sx={{ pl: 2 }}noWrap> 
+                    {folder.name}
+                </Typography> 
+        </ListItem>
     )
 }
 
