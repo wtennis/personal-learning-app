@@ -64,6 +64,14 @@ export default function EditMenu( { folder }) {
     setAnchorEl(null);
   };
 
+  function handleDelete(){
+    console.log('delete clicked')
+
+    fetch(`folders/${folder.id}`, { method: "DELETE" })
+    .then(r=> r.json());
+    handleClose();
+  }
+
   return (
     <div>
       <IconButton onMouseOver={() => setEditing(true)} 
@@ -102,7 +110,7 @@ export default function EditMenu( { folder }) {
           Add Resource
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleDelete} disableRipple>
           <DeleteIcon />
           Delete
         </MenuItem>
