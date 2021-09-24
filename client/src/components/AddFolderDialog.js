@@ -20,31 +20,32 @@ export default function AddFolderDialog() {
     setOpen(false);
   };
 
+  function handleCreate(){
+    console.log('create clicked')
+
+    
+    handleClose();
+  }
+
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClickOpen}>
         <CreateNewFolderIcon/>
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Subscribe</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We
-            will send updates occasionally.
-          </DialogContentText>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            label="Email Address"
-            type="email"
+            label="Folder Name"
             fullWidth
             variant="standard"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
+          <Button onClick={handleCreate}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>
