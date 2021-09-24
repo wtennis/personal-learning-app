@@ -8,9 +8,7 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-
+import EditMenu from './EditMenu';
 
 function ExpandableItem({ folder, paddingLeft }){
     const [open, setOpen] = useState(false);
@@ -35,19 +33,10 @@ function ExpandableItem({ folder, paddingLeft }){
         setOpen(!open);
       };
 
-      function handleEdit() {
-          console.log('edit click')
-      }
-
     return (
         <>
         <ListItem sx={{ pl: paddingLeft }}>
-                    <IconButton onMouseOver={() => setEditing(true)} 
-                                onMouseLeave={() => setEditing(false)}
-                                onClick={handleEdit}
-                                >
-                        {editing? <MoreVertIcon/> : folder.emoji}
-                    </IconButton>
+                    <EditMenu folder={folder}/>
             <ListItemButton onClick={handleClick}>
                 <Typography noWrap> 
                     {folder.name}
