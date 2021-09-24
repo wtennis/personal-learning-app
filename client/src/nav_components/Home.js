@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import AppBar from '@mui/material/AppBar';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -15,6 +14,7 @@ import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import LernList from '../components/LernList';
 import Header from './Header';
+import AddFolderDialog from '../components/AddFolderDialog'
 
 function Home({ user, setUser }){
     const drawerWidth = 400;
@@ -55,6 +55,7 @@ return (
                     <GraphicEqIcon />
                 </ListItemIcon>
                 <ListItemText primary= 'Home' />
+                <AddFolderDialog />
               </ListItem>
           <Divider />
           <LernList contents={topLevelData} paddingLeft={4}/>
