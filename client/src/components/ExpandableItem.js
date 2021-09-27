@@ -10,8 +10,6 @@ import EditMenu from './EditMenu';
 
 function ExpandableItem({ item, paddingLeft }){
     const [open, setOpen] = useState(false);
-    const [editing, setEditing] = useState(false);
-
     const [contents, setContents] = useState(null);
     const [padding, setPadding] = useState(paddingLeft + 4)
 

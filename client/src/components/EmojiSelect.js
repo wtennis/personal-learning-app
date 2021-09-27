@@ -19,6 +19,7 @@ const MenuProps = {
 
 const emojis = [
   '📁',
+  '🔗',
   '🔥',
   '🏆',
   '🌈',
@@ -28,7 +29,7 @@ const emojis = [
   '💋',
   '😈',
   '🌎',
-  '🌼',
+  '🌼'
 ];
 
 // function getStyles(emoji, emoji, theme) {

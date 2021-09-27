@@ -9,14 +9,14 @@ import EmojiSelect from './EmojiSelect';
 
 
 
-export default function AddNestedItemDialog({ item, openDialog, setOpenDialog }) {
+export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDialog, type }) {
   const [isPublic, setIsPublic] = React.useState(false);
-  const [emoji, setEmoji] = React.useState('📁');
+  const [emoji, setEmoji] = React.useState('');
   const [itemName, setItemName] = React.useState([]);
+  const [url, setUrl] = React.useState("");
 
   const handleClick = () => {
     setOpenDialog(!openDialog);
-    setEmoji('📁');
   };
 
   function handleCreateFolder(){
@@ -29,7 +29,8 @@ export default function AddNestedItemDialog({ item, openDialog, setOpenDialog })
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        parent_id: item.id,
+        type: type,
+        parent_id: parent_id,
         name: itemName,
         emoji: emoji,
         is_public: isPublic
@@ -40,11 +41,32 @@ export default function AddNestedItemDialog({ item, openDialog, setOpenDialog })
     });
 }
 
+    function handleCreateResource(){
+        console.log(`Folder name: ${itemName}, emoji: ${emoji}, url: ${url}`)
+        handleClick();
+
+        fetch('/folder_contents', { 
+        method: "POST", 
+        headers: { 
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            type: type,
+            parent_id: parent_id,
+            name: itemName,
+            emoji: emoji,
+            url: url
+        })
+    })
+    .then(res => {
+        res.json(); 
+        });
+    }
+
+
   const handleChange = (event) => {
     setIsPublic(event.target.checked);
   };
-
-
 
   return (
     <div>
@@ -56,20 +78,34 @@ export default function AddNestedItemDialog({ item, openDialog, setOpenDialog })
             id="name"
             value = {itemName}
             onChange={(e)=> setItemName(e.target.value)}
-            label="Folder Name"
+            label= {`${type} Name`}
             fullWidth
             variant="standard"
           />
           <EmojiSelect emoji={emoji} setEmoji={setEmoji}/>
-          <Checkbox
-            checked={isPublic}
-            onChange={handleChange}
-            inputProps={{ 'aria-label': 'controlled' }}
-          />public
+          {type == "Resource" ? 
+                <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                value = {url}
+                onChange={(e)=> setUrl(e.target.value)}
+                label="URL"
+                fullWidth
+                variant="standard"
+              />
+            :
+                <Checkbox
+                checked={isPublic}
+                onChange={handleChange}
+                inputProps={{ 'aria-label': 'controlled' }}
+                label="public"
+                />
+        }
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
-          <Button onClick={handleCreateFolder}>Create</Button>
+          <Button onClick={type == "Resource" ? handleCreateResource : handleCreateFolder}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>

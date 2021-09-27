@@ -57,6 +57,7 @@ export default function EditMenu( { item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [type, setType] = React.useState(null);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -81,11 +82,13 @@ export default function EditMenu( { item }) {
     handleClose();
   }
 
-  function handleAddNestedItem(){
+  function handleAddNestedItem(type){
     handleClose();
+    setType(type);
     setOpenDialog(!openDialog)
     console.log(item);
   }
+
 
   function handleAddNote(){
     console.log('handleAddNote fired');
@@ -124,7 +127,7 @@ export default function EditMenu( { item }) {
         {item.type == "Resource"? 
             null 
           :
-              <MenuItem onClick={handleAddNestedItem} disableRipple>
+              <MenuItem onClick={() => handleAddNestedItem("Folder")} disableRipple>
                 <CreateNewFolderIcon />
                 Add Folder
               </MenuItem> 
@@ -132,7 +135,7 @@ export default function EditMenu( { item }) {
         {item.type == "Resource"? 
             null 
           :
-            <MenuItem onClick={handleAddNestedItem} disableRipple>
+            <MenuItem onClick={() => handleAddNestedItem("Resource")} disableRipple>
               <AddLinkIcon />
               Add Resource
             </MenuItem>
@@ -143,7 +146,7 @@ export default function EditMenu( { item }) {
           Delete
         </MenuItem>
       </StyledMenu>
-      <AddNestedItemDialog item={item} openDialog={openDialog} setOpenDialog={setOpenDialog}/>
+      <AddNestedItemDialog parent_id={item.id} openDialog={openDialog} setOpenDialog={setOpenDialog} type={type}/>
     </div>
   );
 }
