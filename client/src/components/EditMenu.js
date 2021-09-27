@@ -52,7 +52,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditMenu( { folder }) {
+export default function EditMenu( { item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
 
@@ -65,15 +65,15 @@ export default function EditMenu( { folder }) {
   };
 
   function handleDelete(){
-    const target = folder.type == "Resource" ? "resources" : "folders"
+    const target = item.type == "Resource" ? "resources" : "folders"
     
-    fetch(`${target}/${folder.id}`, { method: "DELETE" })
+    fetch(`${target}/${item.id}`, { method: "DELETE" })
     .then(r=> r.json());
     handleClose();
   }
 
   function handleRename() {
-    console.log(folder)
+    console.log(item)
     handleClose();
   }
 
@@ -87,7 +87,7 @@ export default function EditMenu( { folder }) {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                   >
-          {editing || open? <MoreVertIcon/> : folder.emoji}
+          {editing || open? <MoreVertIcon/> : item.emoji}
       </IconButton>
       <StyledMenu
         id="demo-customized-menu"

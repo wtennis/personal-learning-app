@@ -10,7 +10,7 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 
-function ExpandableItem({ folder, paddingLeft }){
+function ExpandableItem({ item, paddingLeft }){
     const [open, setOpen] = useState(false);
     const [editing, setEditing] = useState(false);
 
@@ -18,7 +18,7 @@ function ExpandableItem({ folder, paddingLeft }){
     const [padding, setPadding] = useState(paddingLeft + 4)
 
     useEffect(() => {
-        fetch(`/folder_contents/${folder.id}`)
+        fetch(`/folder_contents/${item.id}`)
         .then(r=> {
         if (r.ok){
             r.json().then((res) => {
@@ -28,7 +28,7 @@ function ExpandableItem({ folder, paddingLeft }){
             });
         };
         });
-      }, [folder.id])
+      }, [item.id])
 
       const handleClick = () => {
         setOpen(!open);
@@ -37,10 +37,10 @@ function ExpandableItem({ folder, paddingLeft }){
     return (
         <>
         <ListItem sx={{ pl: paddingLeft }}>
-                    <EditMenu folder={folder}/>
+                    <EditMenu item={item}/>
             <ListItemButton onClick={handleClick}>
                 <Typography noWrap> 
-                    {folder.name}
+                    {item.name}
                 </Typography> 
                     {open ? <ExpandLess sx={{ ml: 2 }}/> : <ExpandMore sx={{ ml: 2 }}/>}
                 </ListItemButton>
