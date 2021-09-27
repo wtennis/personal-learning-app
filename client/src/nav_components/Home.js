@@ -20,7 +20,6 @@ function Home({ user, setUser }){
     const drawerWidth = 400;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
-    const [reloadTrigger, setReloadTrigger] = React.useState(false)
 
 
 
@@ -34,7 +33,7 @@ function Home({ user, setUser }){
             });
           }
         })
-      }, [reloadTrigger])
+      }, [])
 
 return (
     <>
@@ -56,10 +55,10 @@ return (
                     <GraphicEqIcon />
                 </ListItemIcon>
                 <ListItemText primary= 'Home' />
-                <AddFolderDialog reloadTrigger={reloadTrigger} setReloadTrigger={setReloadTrigger}/>
+                <AddFolderDialog/>
               </ListItem>
           <Divider />
-          <LernList reloadTrigger={reloadTrigger} setReloadTrigger={setReloadTrigger} contents={topLevelData} paddingLeft={4}/>
+          <LernList contents={topLevelData} paddingLeft={4}/>
         </Box>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
