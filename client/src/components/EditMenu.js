@@ -10,6 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AddLinkIcon from '@mui/icons-material/AddLink';
+import AddNestedItemDialog from './AddNestedItemDialog';
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -52,9 +53,10 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditMenu( { item, reloadTrigger, setReloadTrigger }) {
+export default function EditMenu( { item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -69,14 +71,24 @@ export default function EditMenu( { item, reloadTrigger, setReloadTrigger }) {
     
     fetch(`${target}/${item.id}`, { method: "DELETE" })
     .then(r=> {
-      r.json()
-      setReloadTrigger(!reloadTrigger)
-    });
+      r.json();
+       });
     handleClose();
   }
 
   function handleRename() {
     console.log(item)
+    handleClose();
+  }
+
+  function handleAddNestedItem(){
+    handleClose();
+    setOpenDialog(!openDialog)
+    console.log(item);
+  }
+
+  function handleAddNote(){
+    console.log('handleAddNote fired');
     handleClose();
   }
 
@@ -105,24 +117,33 @@ export default function EditMenu( { item, reloadTrigger, setReloadTrigger }) {
           <EditIcon />
           Rename
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleAddNote} disableRipple>
           <NoteAddIcon />
           Add Note
         </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <CreateNewFolderIcon />
-          Add Folder
-        </MenuItem>
-        <MenuItem onClick={handleClose} disableRipple>
-          <AddLinkIcon />
-          Add Resource
-        </MenuItem>
+        {item.type == "Resource"? 
+            null 
+          :
+              <MenuItem onClick={handleAddNestedItem} disableRipple>
+                <CreateNewFolderIcon />
+                Add Folder
+              </MenuItem> 
+        }
+        {item.type == "Resource"? 
+            null 
+          :
+            <MenuItem onClick={handleAddNestedItem} disableRipple>
+              <AddLinkIcon />
+              Add Resource
+            </MenuItem>
+        }
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleDelete} disableRipple>
           <DeleteIcon />
           Delete
         </MenuItem>
       </StyledMenu>
+      <AddNestedItemDialog item={item} openDialog={openDialog} setOpenDialog={setOpenDialog}/>
     </div>
   );
 }

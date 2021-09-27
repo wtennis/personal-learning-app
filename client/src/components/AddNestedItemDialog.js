@@ -4,43 +4,41 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
-import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import EmojiSelect from './EmojiSelect';
 
 
 
-export default function AddFolderDialog() {
-  const [open, setOpen] = React.useState(false);
+export default function AddNestedItemDialog({ item, openDialog, setOpenDialog }) {
   const [isPublic, setIsPublic] = React.useState(false);
   const [emoji, setEmoji] = React.useState('📁');
-  const [folderName, setFolderName] = React.useState([]);
+  const [itemName, setItemName] = React.useState([]);
 
   const handleClick = () => {
-    setOpen(!open);
+    setOpenDialog(!openDialog);
     setEmoji('📁');
   };
 
-  function handleCreate(){
-    console.log(`Folder name: ${folderName}, emoji: ${emoji}, isPublic: ${isPublic}`)
+  function handleCreateFolder(){
+    console.log(`Folder name: ${itemName}, emoji: ${emoji}, isPublic: ${isPublic}`)
     handleClick();
 
-    fetch('/folders', { 
+    fetch('/folder_contents', { 
       method: "POST", 
       headers: { 
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        name: folderName,
+        parent_id: item.id,
+        name: itemName,
         emoji: emoji,
         is_public: isPublic
       })
   })
   .then(res => {
-    res.json();
-  });
-  }
+    res.json(); 
+    });
+}
 
   const handleChange = (event) => {
     setIsPublic(event.target.checked);
@@ -50,17 +48,14 @@ export default function AddFolderDialog() {
 
   return (
     <div>
-      <IconButton variant="outlined" onClick={handleClick}>
-        <CreateNewFolderIcon/>
-      </IconButton>
-      <Dialog open={open} onClose={handleClick}>
+      <Dialog open={openDialog} onClose={handleClick}>
         <DialogContent>
           <TextField
             autoFocus
             margin="dense"
             id="name"
-            value = {folderName}
-            onChange={(e)=> setFolderName(e.target.value)}
+            value = {itemName}
+            onChange={(e)=> setItemName(e.target.value)}
             label="Folder Name"
             fullWidth
             variant="standard"
@@ -74,7 +69,7 @@ export default function AddFolderDialog() {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
-          <Button onClick={handleCreate}>Create</Button>
+          <Button onClick={handleCreateFolder}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>
