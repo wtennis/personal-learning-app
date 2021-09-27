@@ -52,7 +52,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditMenu( { item }) {
+export default function EditMenu( { item, reloadTrigger, setReloadTrigger }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
 
@@ -68,7 +68,10 @@ export default function EditMenu( { item }) {
     const target = item.type == "Resource" ? "resources" : "folders"
     
     fetch(`${target}/${item.id}`, { method: "DELETE" })
-    .then(r=> r.json());
+    .then(r=> {
+      r.json()
+      setReloadTrigger(!reloadTrigger)
+    });
     handleClose();
   }
 

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItem from '@mui/material/ListItem';
-
 import Typography from '@mui/material/Typography';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -10,7 +9,7 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 
-function ExpandableItem({ item, paddingLeft }){
+function ExpandableItem({ item, paddingLeft, reloadTrigger, setReloadTrigger }){
     const [open, setOpen] = useState(false);
     const [editing, setEditing] = useState(false);
 
@@ -37,7 +36,7 @@ function ExpandableItem({ item, paddingLeft }){
     return (
         <>
         <ListItem sx={{ pl: paddingLeft }}>
-                    <EditMenu item={item}/>
+                    <EditMenu reloadTrigger={reloadTrigger} setReloadTrigger={setReloadTrigger} item={item}/>
             <ListItemButton onClick={handleClick}>
                 <Typography noWrap> 
                     {item.name}
