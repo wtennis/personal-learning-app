@@ -3,7 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import { useState } from 'react';
 import EditMenu from './EditMenu';
 
-function Item({ folder, paddingLeft }){
+function Item({ item, paddingLeft }){
     const [editing, setEditing] = useState(false);
 
       function handleEdit() {
@@ -12,9 +12,9 @@ function Item({ folder, paddingLeft }){
 
     return(
         <ListItem sx={{ pl: paddingLeft }}>
-            <EditMenu folder={folder}/>
+            <EditMenu item={item}/>
             <Typography sx={{ pl: 2 }}noWrap> 
-                {folder.name}
+                {item.name}
             </Typography> 
         </ListItem>
     )
