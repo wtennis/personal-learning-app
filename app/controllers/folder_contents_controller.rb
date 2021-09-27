@@ -7,8 +7,12 @@ class FolderContentsController < ApplicationController
 
     def create
         user = User.find_by(id: session[:user_id])
-        folder = user.folders.create!(folder_params)
-        nest = FolderContent.create(folder_id: params[:parent_id], contentsable_type: "Folder", contentsable_id: folder.id)
+        if params[:type] == "Resource"
+            newItem = Resource.create!(resource_params)
+        else
+            newItem = user.folders.create!(folder_params)
+        end
+        nest = FolderContent.create(folder_id: params[:parent_id], contentsable_type: params[:type], contentsable_id: newItem.id)
     end
 
     private
@@ -17,6 +21,9 @@ class FolderContentsController < ApplicationController
         params.permit(:name, :emoji, :is_public)
     end
 
+    def resource_params
+        params.permit(:name, :emoji, :url)
+    end
 
 
 end
