@@ -65,10 +65,15 @@ export default function EditMenu( { folder }) {
   };
 
   function handleDelete(){
-    console.log('delete clicked')
-
-    fetch(`folders/${folder.id}`, { method: "DELETE" })
+    const target = folder.type == "Resource" ? "resources" : "folders"
+    
+    fetch(`${target}/${folder.id}`, { method: "DELETE" })
     .then(r=> r.json());
+    handleClose();
+  }
+
+  function handleRename() {
+    console.log(folder)
     handleClose();
   }
 
@@ -93,7 +98,7 @@ export default function EditMenu( { folder }) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem onClick={handleRename} disableRipple>
           <EditIcon />
           Rename
         </MenuItem>
