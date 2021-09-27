@@ -17,18 +17,14 @@ export default function AddFolderDialog({ reloadTrigger, setReloadTrigger }) {
   const [emoji, setEmoji] = React.useState('📁');
   const [folderName, setFolderName] = React.useState([]);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
+  const handleClick = () => {
+    setOpen(!open);
     setEmoji('📁');
   };
 
   function handleCreate(){
     console.log(`Folder name: ${folderName}, emoji: ${emoji}, isPublic: ${isPublic}`)
-    handleClose();
+    handleClick();
 
     fetch('/folders', { 
       method: "POST", 
@@ -55,10 +51,10 @@ export default function AddFolderDialog({ reloadTrigger, setReloadTrigger }) {
 
   return (
     <div>
-      <IconButton variant="outlined" onClick={handleClickOpen}>
+      <IconButton variant="outlined" onClick={handleClick}>
         <CreateNewFolderIcon/>
       </IconButton>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClick}>
         <DialogContent>
           <TextField
             autoFocus
@@ -78,7 +74,7 @@ export default function AddFolderDialog({ reloadTrigger, setReloadTrigger }) {
           />public
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClick}>Cancel</Button>
           <Button onClick={handleCreate}>Create</Button>
         </DialogActions>
       </Dialog>
