@@ -11,7 +11,7 @@ import EmojiSelect from './EmojiSelect';
 
 
 
-export default function AddFolderDialog() {
+export default function AddFolderDialog({ reloadTrigger, setReloadTrigger }) {
   const [open, setOpen] = React.useState(false);
   const [isPublic, setIsPublic] = React.useState(false);
   const [emoji, setEmoji] = React.useState('📁');
@@ -41,7 +41,10 @@ export default function AddFolderDialog() {
         is_public: isPublic
       })
   })
-  .then(res => res.json());
+  .then(res => {
+    res.json()
+    setReloadTrigger(!reloadTrigger);
+  });
   }
 
   const handleChange = (event) => {
