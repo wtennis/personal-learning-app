@@ -23,6 +23,7 @@ function ExpandableItem({ folder, paddingLeft }){
         if (r.ok){
             r.json().then((res) => {
             setContents(res);
+            console.log('folder_contents fetched!')
             console.log(res);
             });
         };
