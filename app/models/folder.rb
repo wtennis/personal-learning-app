@@ -26,7 +26,8 @@ class Folder < ApplicationRecord
   end
 
   def self.top_levels
-    Folder.where("NOT EXISTS(SELECT 1 from folder_contents where folders.id = folder_contents.contentsable_id)")
+    Folder.where.missing(:folder_contents)
+    # ^^^ remember, missing :folder_contents means these folders are missing BEING instances of folder contents...AKA they are not nested anywhere
   end
 
   def has_contents
