@@ -3,7 +3,7 @@ import ListItem from '@mui/material/ListItem';
 import { useState } from 'react';
 import EditMenu from './EditMenu';
 
-function Item({ item, paddingLeft }){
+function Item({ item, paddingLeft, reloadTrigger, setReloadTrigger}){
     const [editing, setEditing] = useState(false);
 
       function handleEdit() {
@@ -12,7 +12,7 @@ function Item({ item, paddingLeft }){
 
     return(
         <ListItem sx={{ pl: paddingLeft }}>
-            <EditMenu item={item}/>
+            <EditMenu reloadTrigger={reloadTrigger} setReloadTrigger={setReloadTrigger} item={item}/>
             <Typography sx={{ pl: 2 }}noWrap> 
                 {item.name}
             </Typography> 
