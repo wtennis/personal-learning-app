@@ -10,6 +10,7 @@ class FoldersController < ApplicationController
         if folder
           folder.destroy_nested
         # investigate if this recursive method is best practice
+        folder.folder_contents.destroy_all
           folder.destroy
           head :no_content
         else
