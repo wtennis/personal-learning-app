@@ -11,11 +11,11 @@ function LernList({ contents, paddingLeft }){
     <List>
     {contents? 
                     <>
-                    {contents.map((folder, index) => (
-                    (folder.has_contents? 
-                        <ExpandableItem key={index} folder={folder} paddingLeft={paddingLeft}/>
+                    {contents.map((item, index) => (
+                    (item.has_contents? 
+                        <ExpandableItem key={index} item={item} paddingLeft={paddingLeft}/>
                         :
-                        <Item key={index} folder={folder} paddingLeft={paddingLeft}/>)
+                        <Item key={index} item={item} paddingLeft={paddingLeft}/>)
                     ))}
                     </>
             : 
