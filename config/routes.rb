@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   
   # resources :notes
-  resources :folder_contents, only: :show
+  resources :folder_contents, only: [:show, :create]
   resources :resources, only: :destroy
   resources :folders, only: [:index, :destroy, :create]
   # resources :users
