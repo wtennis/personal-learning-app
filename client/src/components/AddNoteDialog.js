@@ -5,7 +5,8 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 
-export default function AddNoteDialog({ openDialog, setOpenDialog }) {
+export default function AddNoteDialog({ openDialog, setOpenDialog, type }) {
+  const [noteContent, setNoteContent] = React.useState("")
 
   const handleClick = () => {
     setOpenDialog(!openDialog);
@@ -13,19 +14,21 @@ export default function AddNoteDialog({ openDialog, setOpenDialog }) {
 
   function handleCreateNote(){
     handleClick();
-
-    fetch('/folder_contents', { 
-      method: "POST", 
-      headers: { 
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        
-      })
-  })
-  .then(res => {
-    res.json(); 
-    });
+    console.log(noteContent)
+    console.log(type)
+  //   fetch('/notes', { 
+  //     method: "POST", 
+  //     headers: { 
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       text: noteContent,
+  //       type: type
+  //     })
+  // })
+  // .then(res => {
+  //   res.json(); 
+  //   });
 }
 
   return (
@@ -37,6 +40,8 @@ export default function AddNoteDialog({ openDialog, setOpenDialog }) {
             minRows={15}
             placeholder="Note"
             style={{ width: 500 }}
+            value = {noteContent}
+            onChange={(e)=> setNoteContent(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
