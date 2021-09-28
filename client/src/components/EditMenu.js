@@ -61,6 +61,7 @@ export default function EditMenu( { item }) {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openNoteDialog, setOpenNoteDialog] = React.useState(false);
   const [type, setType] = React.useState(null);
+  const [noteType, setNoteType] = React.useState(null);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -93,8 +94,9 @@ export default function EditMenu( { item }) {
   }
 
 
-  function handleAddNote(){
+  function handleAddNote(type){
     handleClose();
+    setNoteType(type);
     setOpenNoteDialog(!openNoteDialog)
   }
 
@@ -123,10 +125,19 @@ export default function EditMenu( { item }) {
           <EditIcon />
           Rename
         </MenuItem>
-        <MenuItem onClick={handleAddNote} disableRipple>
-          <NoteAddIcon />
-          Add Note
-        </MenuItem>
+
+        {item.type == "Resource"? 
+            <MenuItem onClick={() => handleAddNote("Resource")} disableRipple>
+              <NoteAddIcon />
+              Add Note
+            </MenuItem> 
+          :
+            <MenuItem onClick={() => handleAddNote("Folder")} disableRipple>
+              <NoteAddIcon />
+              Add Note
+            </MenuItem> 
+        }
+
         {item.type == "Resource"? 
             null 
           :
@@ -150,7 +161,7 @@ export default function EditMenu( { item }) {
         </MenuItem>
       </StyledMenu>
       <AddNestedItemDialog parent_id={item.id} openDialog={openDialog} setOpenDialog={setOpenDialog} type={type}/>
-      <AddNoteDialog openDialog={openNoteDialog} setOpenDialog={setOpenNoteDialog}/>
+      <AddNoteDialog openDialog={openNoteDialog} setOpenDialog={setOpenNoteDialog} type={noteType}/>
     </div>
   );
 }
