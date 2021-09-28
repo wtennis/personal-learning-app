@@ -1,5 +1,5 @@
 class FolderContentSerializer < ActiveModel::Serializer
-  attributes :id, :type, :name, :emoji
+  attributes :id, :type, :name, :emoji, :notes
   attribute :url, if: :resource?
   attribute :has_contents, unless: :resource?
 
@@ -10,6 +10,10 @@ class FolderContentSerializer < ActiveModel::Serializer
 
   def has_contents
     object.contentsable.has_contents
+  end
+
+  def notes
+    object.contentsable.notes
   end
   
   def type
