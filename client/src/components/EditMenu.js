@@ -11,6 +11,9 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddNestedItemDialog from './AddNestedItemDialog';
+import AddNoteDialog from './AddNoteDialog';
+import Badge from '@mui/material/Badge';
+
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -57,7 +60,9 @@ export default function EditMenu( { item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [openNoteDialog, setOpenNoteDialog] = React.useState(false);
   const [type, setType] = React.useState(null);
+  const [noteType, setNoteType] = React.useState(null);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -90,13 +95,15 @@ export default function EditMenu( { item }) {
   }
 
 
-  function handleAddNote(){
-    console.log('handleAddNote fired');
+  function handleAddNote(type){
     handleClose();
+    setNoteType(type);
+    setOpenNoteDialog(!openNoteDialog)
   }
 
   return (
     <div>
+      <Badge color="primary" variant="dot" invisible={!item.notes.length>0}>
       <IconButton onMouseOver={() => setEditing(true)} 
                   onMouseLeave={() => setEditing(false)}
                   onClick={handleClick}
@@ -107,6 +114,7 @@ export default function EditMenu( { item }) {
                   >
           {editing || open? <MoreVertIcon/> : item.emoji}
       </IconButton>
+      </Badge>
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -120,10 +128,19 @@ export default function EditMenu( { item }) {
           <EditIcon />
           Rename
         </MenuItem>
-        <MenuItem onClick={handleAddNote} disableRipple>
-          <NoteAddIcon />
-          Add Note
-        </MenuItem>
+
+        {item.type == "Resource"? 
+            <MenuItem onClick={() => handleAddNote("Resource")} disableRipple>
+              <NoteAddIcon />
+              {item.notes.length>0? "Open Note": "Add Note"}
+            </MenuItem> 
+          :
+            <MenuItem onClick={() => handleAddNote("Folder")} disableRipple>
+              <NoteAddIcon />
+              {item.notes.length>0? "Open Note": "Add Note"}
+            </MenuItem> 
+        }
+
         {item.type == "Resource"? 
             null 
           :
@@ -146,7 +163,15 @@ export default function EditMenu( { item }) {
           Delete
         </MenuItem>
       </StyledMenu>
-      <AddNestedItemDialog parent_id={item.id} openDialog={openDialog} setOpenDialog={setOpenDialog} type={type}/>
+      <AddNestedItemDialog  parent_id={item.id} 
+                            openDialog={openDialog} 
+                            setOpenDialog={setOpenDialog} 
+                            type={type}/>
+      <AddNoteDialog  note={item.notes.length>0? item.notes[0] : false} 
+                      openDialog={openNoteDialog} 
+                      setOpenDialog={setOpenNoteDialog} 
+                      type={noteType} 
+                      parent_id={item.id}/>
     </div>
   );
 }
