@@ -3,5 +3,5 @@ class User < ApplicationRecord
     has_many :folders
     has_many :resources, through: :folder_contents
 
-    validates :username, uniqueness: true
+    validates :username, presence: true, uniqueness: true
 end
