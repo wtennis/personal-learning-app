@@ -98,10 +98,11 @@ return (
               <Box  display="flex"
                 justifyContent="center"
                 alignItems="center"
-                minHeight="10vh"
+                minHeight="12vh"
+                mx="190px"
                 style={{backgroundColor: "#FFF6EC", borderRadius: "2em"}}
                 >
-                <Typography variant="h5">
+                <Typography variant="h4">
                   {suggestion}
                 </Typography>
               </Box>
