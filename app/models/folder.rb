@@ -4,6 +4,8 @@ class Folder < ApplicationRecord
 
   belongs_to :user
 
+  validates :name, length: { minimum: 2 }
+
 
   def nested_fc_instances
     FolderContent.where(folder_id: self.id)
