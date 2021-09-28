@@ -11,6 +11,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddNestedItemDialog from './AddNestedItemDialog';
+import AddNoteDialog from './AddNoteDialog';
+
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -57,6 +59,7 @@ export default function EditMenu( { item }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
+  const [openNoteDialog, setOpenNoteDialog] = React.useState(false);
   const [type, setType] = React.useState(null);
 
   const open = Boolean(anchorEl);
@@ -91,8 +94,8 @@ export default function EditMenu( { item }) {
 
 
   function handleAddNote(){
-    console.log('handleAddNote fired');
     handleClose();
+    setOpenNoteDialog(!openNoteDialog)
   }
 
   return (
@@ -147,6 +150,7 @@ export default function EditMenu( { item }) {
         </MenuItem>
       </StyledMenu>
       <AddNestedItemDialog parent_id={item.id} openDialog={openDialog} setOpenDialog={setOpenDialog} type={type}/>
+      <AddNoteDialog openDialog={openNoteDialog} setOpenDialog={setOpenNoteDialog}/>
     </div>
   );
 }
