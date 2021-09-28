@@ -22,6 +22,8 @@ function Home({ user, setUser, isLoading}){
     const drawerWidth = 400;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
+    const [suggestion, setSuggestion] = React.useState("")
+
 
   if(!user && !isLoading){
     history.push("/login");
@@ -38,6 +40,15 @@ function Home({ user, setUser, isLoading}){
           }
         })
       }, [])
+
+      async function fetchSuggestion(){
+        let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
+        .then(r=> { if(r.ok) 
+            return r.json()
+        })
+        setSuggestion(response.activity)
+    }
+
 
 return (
   <>
@@ -67,47 +78,33 @@ return (
                   <ListItemIcon>
                       <GraphicEqIcon />
                   </ListItemIcon>
-                  <ListItemText primary= 'Home' />
+                  <ListItemText primary= 'LERN' />
                   <AddFolderDialog/>
                 </ListItem>
             <Divider />
             <LernList contents={topLevelData} paddingLeft={4}/>
           </Box>
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Toolbar />
-          <Typography sx={{mb: 2}}variant="h4">Welcome, {user.username}</Typography>
-          <Typography paragraph>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-            sapien faucibus et molestie ac.
-          </Typography>
-          <Typography paragraph>
-            Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-            eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-            neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-            tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-            sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-            tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-            gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-            et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-            tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-            eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
-            posuere sollicitudin aliquam ultrices sagittis orci a.
-          </Typography>
-          <Button color="primary">Display folders</Button>
-          <h4>
-              User data:
-          </h4>
+          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <Toolbar />
+              <Typography sx={{mb: 2}}variant="h4">Welcome, {user.username}</Typography>
+              <Box  display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="10vh"
+                >
+              <Button onClick={fetchSuggestion} variant="contained">Learning Suggestion</Button>
+              </Box> 
+              <Box  display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="10vh"
+                style={{backgroundColor: "#FFF6EC", borderRadius: "2em"}}
+                >
+                <Typography variant="h5">
+                  {suggestion}
+                </Typography>
+              </Box>
         </Box>
       </Box>
     }
