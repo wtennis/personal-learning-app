@@ -12,6 +12,7 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddNestedItemDialog from './AddNestedItemDialog';
 import AddNoteDialog from './AddNoteDialog';
+import Badge from '@mui/material/Badge';
 
 
 const StyledMenu = styled((props) => (
@@ -102,6 +103,7 @@ export default function EditMenu( { item }) {
 
   return (
     <div>
+      <Badge color="primary" variant="dot" invisible={!item.notes.length>0}>
       <IconButton onMouseOver={() => setEditing(true)} 
                   onMouseLeave={() => setEditing(false)}
                   onClick={handleClick}
@@ -112,6 +114,7 @@ export default function EditMenu( { item }) {
                   >
           {editing || open? <MoreVertIcon/> : item.emoji}
       </IconButton>
+      </Badge>
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -129,12 +132,12 @@ export default function EditMenu( { item }) {
         {item.type == "Resource"? 
             <MenuItem onClick={() => handleAddNote("Resource")} disableRipple>
               <NoteAddIcon />
-              Add Note
+              {item.notes.length>0? "Open Note": "Add Note"}
             </MenuItem> 
           :
             <MenuItem onClick={() => handleAddNote("Folder")} disableRipple>
               <NoteAddIcon />
-              Add Note
+              {item.notes.length>0? "Open Note": "Add Note"}
             </MenuItem> 
         }
 
@@ -160,8 +163,15 @@ export default function EditMenu( { item }) {
           Delete
         </MenuItem>
       </StyledMenu>
-      <AddNestedItemDialog parent_id={item.id} openDialog={openDialog} setOpenDialog={setOpenDialog} type={type}/>
-      <AddNoteDialog openDialog={openNoteDialog} setOpenDialog={setOpenNoteDialog} type={noteType}/>
+      <AddNestedItemDialog  parent_id={item.id} 
+                            openDialog={openDialog} 
+                            setOpenDialog={setOpenDialog} 
+                            type={type}/>
+      <AddNoteDialog  note={item.notes.length>0? item.notes[0] : false} 
+                      openDialog={openNoteDialog} 
+                      setOpenDialog={setOpenNoteDialog} 
+                      type={noteType} 
+                      parent_id={item.id}/>
     </div>
   );
 }

@@ -4,9 +4,10 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
+import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function AddNoteDialog({ openDialog, setOpenDialog, type }) {
-  const [noteContent, setNoteContent] = React.useState("")
+export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, parent_id}) {
+  const [noteContent, setNoteContent] = React.useState(note? note.text : "")
 
   const handleClick = () => {
     setOpenDialog(!openDialog);
@@ -14,21 +15,50 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type }) {
 
   function handleCreateNote(){
     handleClick();
-    console.log(noteContent)
     console.log(type)
-  //   fetch('/notes', { 
-  //     method: "POST", 
-  //     headers: { 
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       text: noteContent,
-  //       type: type
-  //     })
-  // })
-  // .then(res => {
-  //   res.json(); 
-  //   });
+    console.log(note)
+    fetch(`/notes`, { 
+      method: "POST", 
+      headers: { 
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        text: noteContent,
+        belongsable_type: type,
+        belongsable_id: parent_id
+      })
+  })
+  .then(res => {
+    res.json(); 
+    });
+}
+
+function handleUpdateNote(){
+  handleClick();
+  console.log('update clicked')
+  fetch(`/notes/${note.id}`, { 
+    method: "PATCH", 
+    headers: { 
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      text: noteContent,
+    })
+})
+.then(res => {
+  res.json(); 
+  });
+}
+
+function handleDeleteNote(){
+  handleClick();
+  if (!note){
+    return
+  };
+  fetch(`/notes/${note.id}`, { method: "DELETE"})
+    .then(res => {
+    res.json(); 
+    });
 }
 
   return (
@@ -45,8 +75,9 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type }) {
           />
         </DialogContent>
         <DialogActions>
+          {noteContent.length>0? <Button onClick={handleDeleteNote} sx={{mr: '200px', color: "#c62828"}}><DeleteIcon/>Delete Note</Button>:null}
           <Button onClick={handleClick}>Cancel</Button>
-          <Button onClick={handleCreateNote}>Add Note</Button>
+          <Button onClick={note? handleUpdateNote : handleCreateNote}>Save Note</Button>
         </DialogActions>
       </Dialog>
     </div>

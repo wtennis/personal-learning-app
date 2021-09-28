@@ -100,6 +100,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
                 label="public"
                 />
         }
+        {type == "Resource" ? null : "public"}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
