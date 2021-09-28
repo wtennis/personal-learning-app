@@ -16,7 +16,7 @@ import LernList from '../components/LernList';
 import Header from './Header';
 import AddFolderDialog from '../components/AddFolderDialog'
 import CircularProgress from '@mui/material/CircularProgress';
-
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 
 function Home({ user, setUser, isLoading}){
     const drawerWidth = 400;
@@ -78,7 +78,7 @@ return (
                   <ListItemIcon>
                       <GraphicEqIcon />
                   </ListItemIcon>
-                  <ListItemText primary= 'LERN' />
+                  <ListItemText/>
                   <AddFolderDialog/>
                 </ListItem>
             <Divider />
@@ -106,6 +106,7 @@ return (
                   {suggestion}
                 </Typography>
               </Box>
+              {suggestion.length>0? <Button target="_blank" href={"//www.google.com"}endIcon={<OpenInNewIcon/>}sx={{left: "70%"}}><h3 className="rainbow-text">Google it</h3></Button>:null}
         </Box>
       </Box>
     }
