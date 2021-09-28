@@ -20,7 +20,6 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
   };
 
   function handleCreateFolder(){
-    console.log(`Folder name: ${itemName}, emoji: ${emoji}, isPublic: ${isPublic}`)
     handleClick();
 
     fetch('/folder_contents', { 
@@ -42,7 +41,6 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
 }
 
     function handleCreateResource(){
-        console.log(`Folder name: ${itemName}, emoji: ${emoji}, url: ${url}`)
         handleClick();
 
         fetch('/folder_contents', { 
@@ -102,6 +100,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
                 label="public"
                 />
         }
+        {type == "Resource" ? null : "public"}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
