@@ -21,7 +21,9 @@ function Home({ user, setUser }){
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
 
-
+  if(!user){
+    history.push("/login");
+  }
 
     useEffect(() => {
         fetch('/folders')
@@ -63,7 +65,7 @@ return (
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <Toolbar />
-        <Typography variant="h4">{user? `Welcome, ${user.username}`: "This is Home. No user in session"}</Typography>
+        <Typography sx={{mb: 2}}variant="h4">Welcome, {user.username}</Typography>
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
