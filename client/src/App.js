@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react'
 
 function App() {
 const [user, setUser] = useState(false)
-
+const [isLoading, setIsLoading] = useState(true)
 
 useEffect(() => {
   fetch('/me')
@@ -15,8 +15,10 @@ useEffect(() => {
     if (r.ok){
       r.json().then((user) => {
         setUser(user);
+        
       });
     }
+    setIsLoading(false);
   })
 }, [])
 
@@ -25,7 +27,7 @@ useEffect(() => {
     <Router>
       <Switch>
           <Route exact path='/'>
-            <Home user={user} setUser={setUser}/>
+            <Home user={user} setUser={setUser} isLoading={isLoading}/>
           </Route>
             <Route path='/signup'>
               <SignUp setUser={setUser} user={user}/>
