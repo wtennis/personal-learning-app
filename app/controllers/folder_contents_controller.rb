@@ -25,5 +25,4 @@ class FolderContentsController < ApplicationController
         params.permit(:name, :emoji, :url)
     end
 
-
 end
