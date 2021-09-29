@@ -23,7 +23,14 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: 'Gluten'
-  }
+  },
+  components: {
+    MuiListItemButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+  }, 
 })
 
 
