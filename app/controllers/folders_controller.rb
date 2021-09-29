@@ -6,7 +6,7 @@ class FoldersController < ApplicationController
     end
 
     def destroy
-        folder = Folder.find_by(id: params[:id])
+        folder = Folder.find_by!(id: params[:id])
         if folder
           folder.destroy_nested
         # investigate if this recursive method is best practice
