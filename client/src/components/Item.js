@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
 
-function Item({ item, paddingLeft }){
+function Item({ item, paddingLeft, remount, setRemount }){
     const [renaming, setRenaming] = useState(false);
     const [itemName, setItemName] = useState(item.name);
 
@@ -26,7 +26,7 @@ function Item({ item, paddingLeft }){
                 .then(r => {
                     if (r.ok){
                         r.json();
-                    //    SET reload
+                        setRemount(!remount)
                     }
                 })
         }
@@ -34,7 +34,7 @@ function Item({ item, paddingLeft }){
 
     return(
         <ListItem sx={{ pl: paddingLeft }}>
-            <EditMenu item={item} renaming={renaming} setRenaming={setRenaming}/>
+            <EditMenu item={item} renaming={renaming} setRenaming={setRenaming} remount={remount} setRemount={setRemount}/>
             {item.url? 
                 <>
                     {renaming?
@@ -48,8 +48,9 @@ function Item({ item, paddingLeft }){
                             onBlur={()=>setRenaming(false)}
                             />
                     :
-                        <Button target="_blank" 
-                            href={item.url}
+                        <Button 
+                            target="_blank" 
+                            href={`//${item.url}`}
                             style={{textTransform: 'lowercase'}}
                             >
                             <Typography noWrap> 

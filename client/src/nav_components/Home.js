@@ -11,7 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import LernList from '../components/LernList';
 import Header from './Header';
 import AddFolderDialog from '../components/AddFolderDialog'
@@ -23,6 +23,7 @@ function Home({ user, setUser, isLoading}){
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
     const [suggestion, setSuggestion] = React.useState("")
+    const [remount, setRemount] = useState('false')
 
 
   if(!user && !isLoading){
@@ -38,7 +39,7 @@ function Home({ user, setUser, isLoading}){
             });
           }
         })
-      }, [])
+      }, [remount])
 
       async function fetchSuggestion(){
         let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
@@ -78,10 +79,10 @@ return (
                       <GraphicEqIcon />
                   </ListItemIcon>
                   <ListItemText/>
-                  <AddFolderDialog/>
+                  <AddFolderDialog remount={remount} setRemount={setRemount}/>
                 </ListItem>
             <Divider />
-            <LernList contents={topLevelData} paddingLeft={4}/>
+            <LernList contents={topLevelData} paddingLeft={4} remount={remount} setRemount={setRemount}/>
           </Box>
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
