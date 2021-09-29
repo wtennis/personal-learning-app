@@ -56,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditMenu( { item }) {
+export default function EditMenu( { item, renaming, setRenaming }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -83,15 +83,14 @@ export default function EditMenu( { item }) {
   }
 
   function handleRename() {
-    console.log(item)
     handleClose();
+    setRenaming(!renaming);
   }
 
   function handleAddNestedItem(type){
     handleClose();
     setType(type);
-    setOpenDialog(!openDialog)
-    console.log(item);
+    setOpenDialog(!openDialog);
   }
 
 
