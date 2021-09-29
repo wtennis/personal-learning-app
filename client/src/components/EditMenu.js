@@ -11,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddNestedItemDialog from './AddNestedItemDialog';
-import AddNoteDialog from './AddNoteDialog';
+import NoteDialog from './NoteDialog';
 import Badge from '@mui/material/Badge';
 
 
@@ -56,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditMenu( { item, renaming, setRenaming }) {
+export default function EditMenu( { item, renaming, setRenaming, remount, setRemount }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -72,14 +72,16 @@ export default function EditMenu( { item, renaming, setRenaming }) {
     setAnchorEl(null);
   };
 
-  function handleDelete(){
+  async function handleDelete(){
     const target = item.type == "Resource" ? "resources" : "folders"
     
-    fetch(`${target}/${item.id}`, { method: "DELETE" })
-    .then(r=> {
-      r.json();
-       });
-    handleClose();
+    let response = await fetch(`${target}/${item.id}`, { method: "DELETE" })
+    .then(
+        setTimeout(()=>{
+          setRemount(!remount)
+         }, 1000)
+        )
+      handleClose();
   }
 
   function handleRename() {
@@ -165,12 +167,17 @@ export default function EditMenu( { item, renaming, setRenaming }) {
       <AddNestedItemDialog  parent_id={item.id} 
                             openDialog={openDialog} 
                             setOpenDialog={setOpenDialog} 
-                            type={type}/>
-      <AddNoteDialog  note={item.notes.length>0? item.notes[0] : false} 
+                            type={type}
+                            remount={remount}
+                            setRemount={setRemount}/>
+      <NoteDialog  note={item.notes.length>0? item.notes[0] : false} 
                       openDialog={openNoteDialog} 
                       setOpenDialog={setOpenNoteDialog} 
                       type={noteType} 
-                      parent_id={item.id}/>
+                      parent_id={item.id}
+                      remount={remount}
+                      setRemount={setRemount}
+                      />
     </div>
   );
 }
