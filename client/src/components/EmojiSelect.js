@@ -29,15 +29,6 @@ const emojis = [
   "🥑","🍅","🍆","🥒","🥕","🌽","🌶","🥔"
 ];
 
-// function getStyles(emoji, emoji, theme) {
-//   return {
-//     fontWeight:
-//       emoji.indexOf(emoji) === -1
-//         ? theme.typography.fontWeightRegular
-//         : theme.typography.fontWeightMedium,
-//   };
-// }
-
 export default function EmojiSelect({ emoji, setEmoji }) {
   const theme = useTheme();
 
