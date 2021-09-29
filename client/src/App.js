@@ -44,10 +44,9 @@ useEffect(() => {
     if (r.ok){
       r.json().then((user) => {
         setUser(user);
-        
+        setIsLoading(false);
       });
     }
-    setIsLoading(false);
   })
 }, [])
 
