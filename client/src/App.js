@@ -46,7 +46,9 @@ useEffect(() => {
         setUser(user);
         setIsLoading(false);
       });
-    }
+    }else{
+        setIsLoading(false);
+      }
   })
 }, [])
 
