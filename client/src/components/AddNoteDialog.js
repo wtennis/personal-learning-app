@@ -15,8 +15,6 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, p
 
   function handleCreateNote(){
     handleClick();
-    console.log(type)
-    console.log(note)
     fetch(`/notes`, { 
       method: "POST", 
       headers: { 
@@ -35,7 +33,6 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, p
 
 function handleUpdateNote(){
   handleClick();
-  console.log('update clicked')
   fetch(`/notes/${note.id}`, { 
     method: "PATCH", 
     headers: { 

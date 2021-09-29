@@ -23,7 +23,6 @@ export default function AddFolderDialog() {
   };
 
   function handleCreate(){
-    console.log(`Folder name: ${folderName}, emoji: ${emoji}, isPublic: ${isPublic}`)
     handleClick();
 
     fetch('/folders', { 

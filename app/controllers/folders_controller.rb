@@ -25,12 +25,26 @@ class FoldersController < ApplicationController
         render json: folder, status: :created
     end
 
+    def update
+      if params[:type] == "Resource"
+        item = Resource.find_by!(id: params[:id])
+      else 
+        item = Folder.find_by!(id: params[:id])
+      end
+      item.update!(item_params)
+      render json: item
+    end
+
+
+
     private
 
     def folder_params
         params.permit(:name, :emoji, :is_public)
     end
 
-
+    def item_params
+      params.permit(:name)
+    end
 
 end
