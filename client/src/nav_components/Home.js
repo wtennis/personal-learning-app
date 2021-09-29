@@ -35,7 +35,6 @@ function Home({ user, setUser, isLoading}){
           if (r.ok){
             r.json().then((folders) => {
               setTopLevelData(folders);
-              console.log(folders)
             });
           }
         })
