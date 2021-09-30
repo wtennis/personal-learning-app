@@ -1,5 +1,4 @@
-# Thurs 9/30/21
-
+# Test
 
 
 # Project Template: React/Rails API
