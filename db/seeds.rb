@@ -51,7 +51,7 @@ n1 = Note.create(text: "Remember to practice at least once a week!", belongsable
     r1 = Resource.create(name: "Between the Bars by Elliot Smith", emoji: "🎸", url: "https://tabs.ultimate-guitar.com/tab/elliott-smith/between-the-bars-chords-364836")
     r2 = Resource.create(name: "Kansas City by The New Basement Tapes", emoji: "🎸", url: "https://tabs.ultimate-guitar.com/tab/the_new_basement_tapes/kansas_city_chords_1678704")
         bars_nest = FolderContent.create(folder_id: guitar_tabs.id, contentsable_id: r1.id, contentsable_type: r1.class.name)
-        kansas_nest = FolderContent.create(folder_id: guitar_tabs.id, contentsable_id: r1.id, contentsable_type: r2.class.name)
+        kansas_nest = FolderContent.create(folder_id: guitar_tabs.id, contentsable_id: r2.id, contentsable_type: r2.class.name)
 
 
 
