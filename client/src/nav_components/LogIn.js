@@ -46,20 +46,7 @@ export default function LogIn() {
     const password = data.get('password')
     const credentials = { username, password }
 
-    dispatch(logIn(credentials));
-    // fetch('/login', { 
-    //   method: 'POST', 
-    //   headers: {
-    //     "Content-Type":"application/json",
-    //   },
-    //   body: JSON.stringify({ username, password })
-    //   }).then((r) => {
-    //     if(r.ok){
-    //       r.json().then((user) => console.log(user));
-    //       };
-    //   });
-
-  
+    dispatch(logIn(credentials));  
   };
 
   return (

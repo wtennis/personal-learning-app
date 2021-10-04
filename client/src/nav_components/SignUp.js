@@ -40,7 +40,7 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+      const data = new FormData(event.currentTarget);
       const username = data.get('username')
       const password = data.get('password')
       const passwordConfirmation = data.get('passwordConfirmation')
@@ -53,22 +53,6 @@ export default function SignUp() {
             }
 
       dispatch(signUp(credentials));
-    // fetch('/signup', 
-    //   {method: 'POST', 
-    //   headers: {
-    //     "Content-Type":"application/json"
-    //   },
-    //   body: JSON.stringify({ 
-    //     username, 
-    //     password, 
-    //     password_confirmation: passwordConfirmation,
-    //     email
-    //   })
-    //   }).then(r=> {
-    //         if(r.ok){
-    //           r.json().then(user=> console.log(user))
-    //         };
-    //     });
   };
 
   return (
