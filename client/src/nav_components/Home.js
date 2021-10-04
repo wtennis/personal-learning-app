@@ -33,7 +33,9 @@ function Home(){
   }
 
     useEffect(() => {
-        dispatch(getFolders())
+        if(folders.length == 0){
+          dispatch(getFolders())
+        }
       }, [])
 
       async function fetchSuggestion(){
