@@ -1,5 +1,4 @@
 
-
   export function getUser() {
     return function (dispatch) {
       dispatch({ type: "user/userLoading" });
@@ -40,6 +39,22 @@
             };
         });
     }
+}
+
+export function signUp(credentials) {
+    return function (dispatch){
+    fetch('/signup', { 
+        method: 'POST', 
+        headers: {
+            "Content-Type":"application/json",
+        },
+        body: JSON.stringify(credentials)
+    }).then((r) => {
+        if(r.ok){
+        r.json().then(user => dispatch({ type: "user/userLoaded", payload: user }));
+        };
+    });
+}
 }
 
 
