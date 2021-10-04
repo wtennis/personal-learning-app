@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {useHistory} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { logIn } from "../redux/actions";
+import { logIn } from "../redux/actions/userActions";
 
 function Copyright(props) {
   return (
