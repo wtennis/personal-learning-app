@@ -1,7 +1,7 @@
 
 const initialState = {
-    user: false,
     loading: false, 
+    data: null
   };
   
   export  function userReducer(state = initialState, action) {
@@ -10,7 +10,7 @@ const initialState = {
             return {
                 ...state,
                 loading: false,
-                user: action.payload,
+                data: action.payload,
             };
         case "user/userLoading":
             return {

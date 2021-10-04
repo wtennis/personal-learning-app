@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 function Header() {
     const dispatch = useDispatch()
-    const reduxUser = useSelector((state) => state.user)
+    const user = useSelector((state) => state.user)
     
     function handleLogOut(){
       dispatch(logOut());    
@@ -31,7 +31,7 @@ return (
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             LERN
           </Typography>
-            {reduxUser.user? 
+            {user.data? 
               <Button onClick={handleLogOut}color="inherit">Log out</Button>
                 :
               <Button href= "/login" color="inherit">Log in</Button>

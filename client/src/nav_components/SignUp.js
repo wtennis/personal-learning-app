@@ -31,10 +31,10 @@ function Copyright(props) {
 
 export default function SignUp() {
   const history = useHistory()
-  const reduxUser = useSelector((state) => state.user)
+  const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  if (reduxUser.user){
+  if (user){
     history.push('/')
   };
 

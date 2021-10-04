@@ -26,13 +26,13 @@ function Home(){
     const [topLevelData, setTopLevelData] = React.useState(null)
     const [suggestion, setSuggestion] = React.useState("")
     const [remount, setRemount] = useState('false')
-    const reduxUser = useSelector((state) => state.user)
+    const user = useSelector((state) => state.user)
 
-    console.log(reduxUser)
 
-  if(!reduxUser.user && !reduxUser.loading){
+  if(!user.data && !user.loading){
     history.push("/login");
   }
+console.log(user.user)
 
     useEffect(() => {
         fetch('/folders')
@@ -56,7 +56,7 @@ function Home(){
 
 return (
   <>
-  {reduxUser.loading?  
+  {user.loading?  
       <Box  display="flex"
             justifyContent="center"
             alignItems="center"
@@ -67,7 +67,7 @@ return (
     : 
       <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Header user={reduxUser.user}/>
+      <Header user={user}/>
       <Drawer
           variant="permanent"
           sx={{
@@ -91,7 +91,7 @@ return (
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
-              <Typography sx={{mb: 2}}variant="h4">Welcome, {reduxUser.user.username}</Typography>
+              <Typography sx={{mb: 2}}variant="h4">Welcome, {user.username}</Typography>
               <Box  display="flex"
                 justifyContent="center"
                 alignItems="center"
