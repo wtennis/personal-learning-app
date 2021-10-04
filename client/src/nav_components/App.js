@@ -4,6 +4,9 @@ import SignUp from './SignUp';
 import Home from './Home'
 import { useState, useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { getUser } from "../redux/actions";
+import { useDispatch, useSelector } from 'react-redux'
+
 
 const theme = createTheme({
   palette: {
@@ -35,23 +38,36 @@ const theme = createTheme({
 
 
 function App() {
-const [user, setUser] = useState(false)
 const [isLoading, setIsLoading] = useState(true)
+const dispatch = useDispatch()
+const reduxStateUser = useSelector((state) => state.user)
+const [user, setUser] = useState(reduxStateUser.user)
+
+
 
 useEffect(() => {
-  fetch('/me')
-  .then(r=> {
-    if (r.ok){
-      r.json().then((user) => {
-        setUser(user);
-        console.log(user)
-        setIsLoading(false);
-      });
-    }else{
-        setIsLoading(false);
-      }
-  })
+  dispatch(getUser());
+  // fetch('/me')
+  // .then(r=> {
+  //   if (r.ok){
+  //     r.json().then((user) => {
+  //       setUser(user);
+  //       console.log(user)
+  //       setIsLoading(false);
+  //     });
+  //   }else{
+  //       setIsLoading(false);
+  //     }
+  // })
+  console.log(reduxStateUser.user)
 }, [])
+
+// setTimeout(()=>{
+//   setUser(reduxStateUser.user);
+//   setIsLoading(false);
+// }, 3000);
+
+
 
   return (
     <ThemeProvider theme={theme}>
