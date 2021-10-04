@@ -11,7 +11,9 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { signUp } from "../redux/actions";
 
 
 function Copyright(props) {
@@ -27,37 +29,30 @@ function Copyright(props) {
   );
 }
 
-export default function SignUp({ user, setUser }) {
+export default function SignUp() {
   const history = useHistory()
+  const reduxUser = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
-  if (user){
+  if (reduxUser.user){
     history.push('/')
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
+      const data = new FormData(event.currentTarget);
       const username = data.get('username')
       const password = data.get('password')
       const passwordConfirmation = data.get('passwordConfirmation')
       const email = data.get('email')
+      const credentials =  {
+                username, 
+                password, 
+                password_confirmation: passwordConfirmation,
+                email
+            }
 
-    fetch('/signup', 
-      {method: 'POST', 
-      headers: {
-        "Content-Type":"application/json"
-      },
-      body: JSON.stringify({ 
-        username, 
-        password, 
-        password_confirmation: passwordConfirmation,
-        email
-      })
-      }).then(r=> {
-            if(r.ok){
-              r.json().then(user=> setUser(user))
-            };
-        });
+      dispatch(signUp(credentials));
   };
 
   return (

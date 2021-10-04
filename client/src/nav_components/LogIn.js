@@ -12,7 +12,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {useHistory} from 'react-router-dom'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { logIn } from "../redux/actions";
 
 function Copyright(props) {
   return (
@@ -28,30 +29,24 @@ function Copyright(props) {
 }
 
 
-export default function LogIn({ setUser, user }) {
+export default function LogIn() {
   const history = useHistory()
+  const reduxUser = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
-  if (user){
+  if (reduxUser.user){
     history.push('/')
   };
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     const username = data.get('username')
     const password = data.get('password')
-   
-    fetch('/login', { 
-      method: 'POST', 
-      headers: {
-        "Content-Type":"application/json",
-      },
-      body: JSON.stringify({ username, password })
-      }).then((r) => {
-        if(r.ok){
-          r.json().then((user) => setUser(user));
-          };
-      });
+    const credentials = { username, password }
+
+    dispatch(logIn(credentials));  
   };
 
   return (

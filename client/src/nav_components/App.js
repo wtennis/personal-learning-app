@@ -1,9 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom" 
-import LogIn from './nav_components/LogIn';
-import SignUp from './nav_components/SignUp'; 
-import Home from './nav_components/Home'
-import { useState, useEffect } from 'react'
+import LogIn from './LogIn';
+import SignUp from './SignUp'; 
+import Home from './Home'
+import { useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { getUser } from "../redux/actions";
+import { useDispatch } from 'react-redux'
+
 
 const theme = createTheme({
   palette: {
@@ -35,21 +38,12 @@ const theme = createTheme({
 
 
 function App() {
-const [user, setUser] = useState(false)
-const [isLoading, setIsLoading] = useState(true)
+const dispatch = useDispatch()
+
+
 
 useEffect(() => {
-  fetch('/me')
-  .then(r=> {
-    if (r.ok){
-      r.json().then((user) => {
-        setUser(user);
-        setIsLoading(false);
-      });
-    }else{
-        setIsLoading(false);
-      }
-  })
+  dispatch(getUser());
 }, [])
 
   return (
@@ -57,13 +51,13 @@ useEffect(() => {
     <Router>
       <Switch>
           <Route exact path='/'>
-            <Home user={user} setUser={setUser} isLoading={isLoading}/>
+            <Home />
           </Route>
             <Route path='/signup'>
-              <SignUp setUser={setUser} user={user}/>
+              <SignUp />
             </Route>
           <Route path='/login'>
-            <LogIn setUser={setUser} user={user}/>
+            <LogIn />
           </Route>
       </Switch>
     </Router>

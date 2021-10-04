@@ -1,22 +1,19 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import {useHistory} from 'react-router-dom'
+import { logOut } from "../redux/actions";
+import { useDispatch, useSelector } from 'react-redux'
 
-function Header({ user, setUser }){
-    const history = useHistory()
+function Header() {
+    const dispatch = useDispatch()
+    const reduxUser = useSelector((state) => state.user)
     
     function handleLogOut(){
-        fetch('/logout', {method: 'DELETE'})
-        .then(() =>{
-            setUser(false)
-            history.push("/login")
-        })
+      dispatch(logOut());    
     };
 
 return (
@@ -34,7 +31,7 @@ return (
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             LERN
           </Typography>
-            {user? 
+            {reduxUser.user? 
               <Button onClick={handleLogOut}color="inherit">Log out</Button>
                 :
               <Button href= "/login" color="inherit">Log in</Button>
