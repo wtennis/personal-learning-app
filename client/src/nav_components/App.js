@@ -4,7 +4,7 @@ import SignUp from './SignUp';
 import Home from './Home'
 import { useEffect } from 'react'
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { getUser } from "../redux/actions";
+import { getUser } from "../redux/actions/userActions";
 import { useDispatch } from 'react-redux'
 
 

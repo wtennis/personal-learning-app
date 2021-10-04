@@ -11,7 +11,7 @@ import EmojiSelect from './EmojiSelect';
 
 
 
-export default function AddFolderDialog({remount, setRemount}) {
+export default function AddFolderDialog() {
   const [open, setOpen] = React.useState(false);
   const [isPublic, setIsPublic] = React.useState(false);
   const [emoji, setEmoji] = React.useState('📁');
@@ -38,9 +38,7 @@ export default function AddFolderDialog({remount, setRemount}) {
   })
   .then(res => {
     res.json();
-    setTimeout(()=>{
-      setRemount(!remount)
-     }, 1000);
+   
   });
   }
 
