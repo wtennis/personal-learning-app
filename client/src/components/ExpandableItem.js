@@ -8,7 +8,8 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
-
+import { getFolderContents } from "../redux/actions/dataActions";
+import { useDispatch, useSelctor } from "react-redux"
 
 function ExpandableItem({ item, paddingLeft}){
     const [open, setOpen] = useState(false);
@@ -16,9 +17,10 @@ function ExpandableItem({ item, paddingLeft}){
     const [padding, setPadding] = useState(paddingLeft + 4)
     const [renaming, setRenaming] = useState(false);
     const [folderName, setFolderName] = useState(item.name);
-
+    const dispatch = useDispatch();
 
     useEffect(() => {
+        // dispatch(getFolderContents(item.id))
         fetch(`/folder_contents/${item.id}`)
         .then(r=> {
         if (r.ok){

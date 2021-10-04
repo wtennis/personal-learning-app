@@ -9,4 +9,14 @@ export function getFolders() {
         }
     }
 
-   
+
+export function getFolderContents(id) {
+    return (dispatch) => {
+        fetch(`/folder_contents/${id}`)
+        .then(r=> {
+        if (r.ok){
+            r.json().then((contents) => dispatch({ type: "folder/getFolderContents", payload: {contents: contents, id: id}}));
+        };
+        })
+        }
+    }

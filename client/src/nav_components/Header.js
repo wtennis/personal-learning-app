@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import { logOut } from "../redux/actions";
+import { logOut } from "../redux/actions/userActions";
 import { useDispatch, useSelector } from 'react-redux'
 
 function Header() {
