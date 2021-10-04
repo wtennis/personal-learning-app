@@ -9,7 +9,7 @@ import EmojiSelect from './EmojiSelect';
 
 
 
-export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDialog, type, setRemount, remount }) {
+export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDialog, type }) {
   const [isPublic, setIsPublic] = React.useState(false);
   const [emoji, setEmoji] = React.useState('');
   const [itemName, setItemName] = React.useState([]);
@@ -37,9 +37,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
   })
   .then(res => {
     res.json(); 
-    setTimeout(()=>{
-      setRemount(!remount)
-     }, 1000);
+   
     });
 }
 
@@ -61,9 +59,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
     })
     .then(res => {
         res.json(); 
-        setTimeout(()=>{
-          setRemount(!remount);
-         }, 1000);
+        
         });
     }
 

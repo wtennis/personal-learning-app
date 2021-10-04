@@ -11,30 +11,29 @@ import ListItemText from '@mui/material/ListItemText';
 import GraphicEqIcon from '@mui/icons-material/GraphicEq';
 import Button from '@mui/material/Button';
 import { useHistory } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import LernList from '../components/LernList';
 import Header from './Header';
 import AddFolderDialog from '../components/AddFolderDialog'
 import CircularProgress from '@mui/material/CircularProgress';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { getFolders } from "../redux/actions/dataActions";
 
 function Home(){
     const drawerWidth = 400;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
     const [suggestion, setSuggestion] = React.useState("")
-    const [remount, setRemount] = useState('false')
     const user = useSelector((state) => state.user)
-
+    const dispatch = useDispatch()
 
   if(!user.data && !user.loading){
     history.push("/login");
   }
-console.log(user.user)
 
     useEffect(() => {
+        dispatch(getFolders())
         fetch('/folders')
         .then(r=> {
           if (r.ok){
@@ -43,7 +42,7 @@ console.log(user.user)
             });
           }
         })
-      }, [remount])
+      }, [])
 
       async function fetchSuggestion(){
         let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
@@ -83,15 +82,15 @@ return (
                       <GraphicEqIcon />
                   </ListItemIcon>
                   <ListItemText/>
-                  <AddFolderDialog remount={remount} setRemount={setRemount}/>
+                  <AddFolderDialog  />
                 </ListItem>
             <Divider />
-            <LernList contents={topLevelData} paddingLeft={4} remount={remount} setRemount={setRemount}/>
+            <LernList contents={topLevelData} paddingLeft={4}  />
           </Box>
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
-              <Typography sx={{mb: 2}}variant="h4">Welcome, {user.username}</Typography>
+              <Typography sx={{mb: 2}}variant="h4">Welcome, {user.data.username}</Typography>
               <Box  display="flex"
                 justifyContent="center"
                 alignItems="center"

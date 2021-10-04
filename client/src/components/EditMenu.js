@@ -56,7 +56,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function EditMenu( { item, renaming, setRenaming, remount, setRemount }) {
+export default function EditMenu( { item, renaming, setRenaming }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
@@ -77,9 +77,7 @@ export default function EditMenu( { item, renaming, setRenaming, remount, setRem
     
     let response = await fetch(`${target}/${item.id}`, { method: "DELETE" })
     .then(
-        setTimeout(()=>{
-          setRemount(!remount)
-         }, 1000)
+
         )
       handleClose();
   }
@@ -168,15 +166,15 @@ export default function EditMenu( { item, renaming, setRenaming, remount, setRem
                             openDialog={openDialog} 
                             setOpenDialog={setOpenDialog} 
                             type={type}
-                            remount={remount}
-                            setRemount={setRemount}/>
+                            
+                            />
       <NoteDialog  note={item.notes.length>0? item.notes[0] : false} 
                       openDialog={openNoteDialog} 
                       setOpenDialog={setOpenNoteDialog} 
                       type={noteType} 
                       parent_id={item.id}
-                      remount={remount}
-                      setRemount={setRemount}
+                      
+                      
                       />
     </div>
   );

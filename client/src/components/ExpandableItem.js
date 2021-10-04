@@ -10,7 +10,7 @@ import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
 
 
-function ExpandableItem({ item, paddingLeft, remount, setRemount }){
+function ExpandableItem({ item, paddingLeft}){
     const [open, setOpen] = useState(false);
     const [contents, setContents] = useState(null);
     const [padding, setPadding] = useState(paddingLeft + 4)
@@ -51,7 +51,6 @@ function ExpandableItem({ item, paddingLeft, remount, setRemount }){
                 .then(r => {
                     if (r.ok){
                         r.json();
-                        setRemount(!remount);
                     }
                 })
         }
@@ -62,7 +61,7 @@ function ExpandableItem({ item, paddingLeft, remount, setRemount }){
     return (
         <>
         <ListItem sx={{ pl: paddingLeft }}>
-                    <EditMenu renaming={renaming} setRenaming={setRenaming}item={item} remount={remount} setRemount={setRemount}/>
+                    <EditMenu renaming={renaming} setRenaming={setRenaming}item={item}  />
             <ListItemButton onClick={handleClick}>
             {renaming?
                 <TextField 
@@ -83,7 +82,7 @@ function ExpandableItem({ item, paddingLeft, remount, setRemount }){
                 </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-            <LernList contents={contents} paddingLeft ={padding} remount={remount} setRemount={setRemount}/>
+            <LernList contents={contents} paddingLeft ={padding}  />
         </Collapse>
         </>
     )
