@@ -23,9 +23,9 @@ import { getFolders } from "../redux/actions/dataActions";
 function Home(){
     const drawerWidth = 400;
     const history = useHistory()
-    const [topLevelData, setTopLevelData] = React.useState(null)
     const [suggestion, setSuggestion] = React.useState("")
     const user = useSelector((state) => state.user)
+    const folders = useSelector((state) => state.data)
     const dispatch = useDispatch()
 
   if(!user.data && !user.loading){
@@ -34,14 +34,6 @@ function Home(){
 
     useEffect(() => {
         dispatch(getFolders())
-        fetch('/folders')
-        .then(r=> {
-          if (r.ok){
-            r.json().then((folders) => {
-              setTopLevelData(folders);
-            });
-          }
-        })
       }, [])
 
       async function fetchSuggestion(){
@@ -55,7 +47,7 @@ function Home(){
 
 return (
   <>
-  {user.loading?  
+  {user.loading || !user.data?  
       <Box  display="flex"
             justifyContent="center"
             alignItems="center"
@@ -85,7 +77,7 @@ return (
                   <AddFolderDialog  />
                 </ListItem>
             <Divider />
-            <LernList contents={topLevelData} paddingLeft={4}  />
+            <LernList contents={folders} paddingLeft={4}  />
           </Box>
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
