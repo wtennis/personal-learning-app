@@ -9,7 +9,6 @@ export function getFolders() {
         }
     }
 
-
 export function getFolderContents(id) {
     return (dispatch) => {
         fetch(`/folder_contents/${id}`)

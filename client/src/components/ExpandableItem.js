@@ -20,7 +20,7 @@ function ExpandableItem({ item, paddingLeft}){
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(getFolderContents(item.id))
+        dispatch(getFolderContents(item.id))
         fetch(`/folder_contents/${item.id}`)
         .then(r=> {
         if (r.ok){
