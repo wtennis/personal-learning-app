@@ -7,16 +7,15 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {useHistory} from 'react-router-dom'
+import { logOut } from "../redux/actions";
+import { useDispatch } from 'react-redux'
 
-function Header({ user, setUser }){
+function Header({ user }){
     const history = useHistory()
+    const dispatch = useDispatch()
     
     function handleLogOut(){
-        fetch('/logout', {method: 'DELETE'})
-        .then(() =>{
-            setUser(false)
-            history.push("/login")
-        })
+      dispatch(logOut());    
     };
 
 return (

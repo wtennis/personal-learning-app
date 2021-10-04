@@ -17,16 +17,20 @@ import Header from './Header';
 import AddFolderDialog from '../components/AddFolderDialog'
 import CircularProgress from '@mui/material/CircularProgress';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { useSelector } from 'react-redux'
 
-function Home({ user, setUser, isLoading}){
+
+function Home(){
     const drawerWidth = 400;
     const history = useHistory()
     const [topLevelData, setTopLevelData] = React.useState(null)
     const [suggestion, setSuggestion] = React.useState("")
     const [remount, setRemount] = useState('false')
+    const reduxUser = useSelector((state) => state.user)
 
+    console.log(reduxUser)
 
-  if(!user && !isLoading){
+  if(!reduxUser.user && !reduxUser.loading){
     history.push("/login");
   }
 
@@ -52,7 +56,7 @@ function Home({ user, setUser, isLoading}){
 
 return (
   <>
-  {isLoading?  
+  {reduxUser.loading?  
       <Box  display="flex"
             justifyContent="center"
             alignItems="center"
@@ -63,7 +67,7 @@ return (
     : 
       <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <Header user={user} setUser={setUser}/>
+      <Header user={reduxUser.user}/>
       <Drawer
           variant="permanent"
           sx={{
@@ -87,7 +91,7 @@ return (
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
-              <Typography sx={{mb: 2}}variant="h4">Welcome, {user.username}</Typography>
+              <Typography sx={{mb: 2}}variant="h4">Welcome, {reduxUser.user.username}</Typography>
               <Box  display="flex"
                 justifyContent="center"
                 alignItems="center"
