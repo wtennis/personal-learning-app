@@ -12,9 +12,9 @@ function LernList({ contents, paddingLeft}){
                     <>
                     {contents.map((item, index) => (
                     (item.has_contents? 
-                        <ExpandableItem key={index} item={item} paddingLeft={paddingLeft}  />
+                        <ExpandableItem key={index} itemId={item.id} paddingLeft={paddingLeft}  />
                         :
-                        <Item key={index} item={item} paddingLeft={paddingLeft}  />)
+                        <Item key={index} itemId={item.id} paddingLeft={paddingLeft}  />)
                     ))}
                     </>
             : 

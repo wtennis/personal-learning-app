@@ -8,6 +8,8 @@ import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import { IconButton } from '@mui/material';
 import Checkbox from '@mui/material/Checkbox';
 import EmojiSelect from './EmojiSelect';
+import { createFolder } from "../redux/actions/dataActions";
+import { useDispatch } from 'react-redux'
 
 
 
@@ -16,6 +18,7 @@ export default function AddFolderDialog() {
   const [isPublic, setIsPublic] = React.useState(false);
   const [emoji, setEmoji] = React.useState('📁');
   const [folderName, setFolderName] = React.useState([]);
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     setOpen(!open);
@@ -24,22 +27,7 @@ export default function AddFolderDialog() {
 
   function handleCreate(){
     handleClick();
-
-    fetch('/folders', { 
-      method: "POST", 
-      headers: { 
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: folderName,
-        emoji: emoji,
-        is_public: isPublic
-      })
-  })
-  .then(res => {
-    res.json();
-   
-  });
+    dispatch(createFolder(folderName, emoji, isPublic));
   }
 
   const handleChange = (event) => {

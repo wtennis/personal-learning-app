@@ -12,15 +12,17 @@ import { renameItem } from "../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux"
 
 
-function ExpandableItem({ item, paddingLeft}){
+function ExpandableItem({ itemId, paddingLeft}){
     const [open, setOpen] = useState(false);
     const [padding, setPadding] = useState(paddingLeft + 4)
     const [renaming, setRenaming] = useState(false);
+    const contents = useSelector((state)=> state.data.filter(i => i.parent_folder_id == itemId))
+    const item = useSelector((state)=> state.data.find(item => item.id == itemId))
     const [folderName, setFolderName] = useState(item.name);
-    const reduxContents = useSelector((state)=> state.data.filter(thing => thing.parent_folder_id == item.id))
     const dispatch = useDispatch();
 
       const handleClick = () => {
+        console.log('item:', item)
         if (!renaming){
             setOpen(!open);
         }
@@ -30,14 +32,14 @@ function ExpandableItem({ item, paddingLeft}){
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
-            dispatch(renameItem("folders", item.id, folderName))         
+            dispatch(renameItem("folders", itemId, folderName))         
         }
       };
 
     return (
         <>
         <ListItem sx={{ pl: paddingLeft }}>
-                    <EditMenu renaming={renaming} setRenaming={setRenaming}item={item}  />
+                    <EditMenu renaming={renaming} setRenaming={setRenaming}item={item}/>
             <ListItemButton onClick={handleClick}>
             {renaming?
                 <TextField 
@@ -58,7 +60,7 @@ function ExpandableItem({ item, paddingLeft}){
                 </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-             <LernList contents={reduxContents} paddingLeft ={padding}/>
+             <LernList contents={contents} paddingLeft ={padding}/>
         </Collapse>
         </>
     )
