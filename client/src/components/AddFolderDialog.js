@@ -27,7 +27,7 @@ export default function AddFolderDialog() {
 
   function handleCreate(){
     handleClick();
-    dispatch(createFolder(folderName, emoji, isPublic));
+    dispatch(createFolder(folderName, emoji, isPublic, false));
   }
 
   const handleChange = (event) => {

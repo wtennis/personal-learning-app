@@ -6,7 +6,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import Checkbox from '@mui/material/Checkbox';
 import EmojiSelect from './EmojiSelect';
-
+import { createFolder, createResource } from "../redux/actions/dataActions";
+import { useDispatch } from 'react-redux'
 
 
 export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDialog, type }) {
@@ -14,6 +15,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
   const [emoji, setEmoji] = React.useState('');
   const [itemName, setItemName] = React.useState([]);
   const [url, setUrl] = React.useState("");
+  const dispatch = useDispatch();
 
   const handleClick = () => {
     setOpenDialog(!openDialog);
@@ -21,48 +23,13 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
 
   function handleCreateFolder(){
     handleClick();
-
-    fetch('/folder_contents', { 
-      method: "POST", 
-      headers: { 
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        type: type,
-        parent_id: parent_id,
-        name: itemName,
-        emoji: emoji,
-        is_public: isPublic
-      })
-  })
-  .then(res => {
-    res.json(); 
-   
-    });
+    dispatch(createFolder(itemName, emoji, isPublic, parent_id));
 }
 
     function handleCreateResource(){
         handleClick();
-
-        fetch('/folder_contents', { 
-        method: "POST", 
-        headers: { 
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            type: type,
-            parent_id: parent_id,
-            name: itemName,
-            emoji: emoji,
-            url: url
-        })
-    })
-    .then(res => {
-        res.json(); 
-        
-        });
+        dispatch(createResource(itemName, emoji, url, parent_id));
     }
-
 
   const handleChange = (event) => {
     setIsPublic(event.target.checked);
