@@ -40,7 +40,7 @@ function Home(){
       }, [])
 
       async function fetchSuggestion(){
-        // dispatch(getResources())
+        dispatch(getResources())
         let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
         .then(r=> { if(r.ok) 
             return r.json()

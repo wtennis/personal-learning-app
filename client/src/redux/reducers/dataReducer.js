@@ -1,11 +1,12 @@
   
+  
+  
   export  function dataReducer(state = [], action) {
-
     switch (action.type) {
         case "data/getFolders":
-            return action.payload;
+            return state.concat(action.payload)
         case "data/getResources":
-            return action.payload;
+            return state.concat(action.payload)
         case "folder/getFolderContents":
             return state.map(folder => {
                 if (!folder.has_contents) {
