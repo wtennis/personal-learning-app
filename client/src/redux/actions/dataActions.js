@@ -36,7 +36,7 @@ export function renameItem(target, id, newName) {
         }
     }
 
-export function createFolder(name, emoji, isPublic) {
+export function createFolder(name, emoji, isPublic, parent_id) {
     return (dispatch) => {
         fetch('/folders', { 
             method: "POST", 
@@ -46,12 +46,35 @@ export function createFolder(name, emoji, isPublic) {
             body: JSON.stringify({
               name: name,
               emoji: emoji,
-              is_public: isPublic
+              is_public: isPublic,
+              parent_id: parent_id
             })
         })
         .then(r => {
             if (r.ok){
                 r.json().then((newFolder) => dispatch({ type: "data/createFolder", payload: newFolder}));
+            }
+        })
+        }
+    }
+
+export function createResource(name, emoji, url, parent_id) {
+    return (dispatch) => {
+        fetch('/resources', { 
+            method: "POST", 
+            headers: { 
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                emoji: emoji,
+                url: url,
+                parent_id: parent_id
+            })
+        })
+        .then(r => {
+            if (r.ok){
+                r.json().then((newResource) => dispatch({ type: "data/createResource", payload: newResource}));
             }
         })
         }

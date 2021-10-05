@@ -16,6 +16,8 @@
             })
         case "data/createFolder":
             return [...state, action.payload]
+        case "data/createResource":
+            return [...state, action.payload]
         default:
             return state;
         }
