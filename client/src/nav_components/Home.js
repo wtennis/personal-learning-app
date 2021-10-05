@@ -36,11 +36,11 @@ function Home(){
     useEffect(() => {
         if(topFolders.length == 0){
           dispatch(getFolders());
+          dispatch(getResources());
         }
       }, [])
 
       async function fetchSuggestion(){
-        dispatch(getResources())
         let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
         .then(r=> { if(r.ok) 
             return r.json()

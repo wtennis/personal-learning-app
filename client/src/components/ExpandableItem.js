@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItem from '@mui/material/ListItem';
 import Typography from '@mui/material/Typography';
@@ -8,29 +8,27 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
-import { getFolderContents } from "../redux/actions/dataActions";
-import { useDispatch, useSelector } from "react-redux"
+// import { getFolderContents } from "../redux/actions/dataActions";
+import { useSelector } from "react-redux"
 
 function ExpandableItem({ item, paddingLeft}){
     const [open, setOpen] = useState(false);
-    const [contents, setContents] = useState(null);
     const [padding, setPadding] = useState(paddingLeft + 4)
     const [renaming, setRenaming] = useState(false);
     const [folderName, setFolderName] = useState(item.name);
-    const dispatch = useDispatch();
-    const reduxContents = useSelector((state)=> state.data.find(f => f.id === item.id))
+    const reduxContents = useSelector((state)=> state.data.filter(thing => thing.parent_folder_id == item.id))
 
-    useEffect(() => {
-        dispatch(getFolderContents(item.id))
-        fetch(`/folder_contents/${item.id}`)
-        .then(r=> {
-        if (r.ok){
-            r.json().then((res) => {
-            setContents(res);
-            });
-        };
-        });
-      }, [item.id])
+    // useEffect(() => {
+    //     dispatch(getFolderContents(item.id))
+    //     fetch(`/folder_contents/${item.id}`)
+    //     .then(r=> {
+    //     if (r.ok){
+    //         r.json().then((res) => {
+    //         setContents(res);
+    //         });
+    //     };
+    //     });
+    //   }, [item.id])
 
       const handleClick = () => {
         if (!renaming){
@@ -86,7 +84,7 @@ function ExpandableItem({ item, paddingLeft}){
                 </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-             <LernList contents={contents} paddingLeft ={padding}/>
+             <LernList contents={reduxContents} paddingLeft ={padding}/>
         </Collapse>
         </>
     )
