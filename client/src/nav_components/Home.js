@@ -35,7 +35,7 @@ function Home(){
 
     useEffect(() => {
         if(topFolders.length == 0){
-          dispatch(getFolders());
+          // dispatch(getFolders());
         }
       }, [])
 
