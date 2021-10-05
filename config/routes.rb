@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   
   resources :notes, only: [:update, :destroy, :create]
   resources :folder_contents, only: [:show, :create]
-  resources :resources, only: :destroy
+  resources :resources, only: [:index, :destroy]
   resources :folders, except: [:show]
   # resources :users
 

@@ -1,4 +1,9 @@
 class ResourcesController < ApplicationController
+    
+    def index
+        resources = Resource.all
+        render json: resources
+    end
 
     def destroy
         resource = Resource.find_by!(id: params[:id])

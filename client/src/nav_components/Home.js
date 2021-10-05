@@ -18,7 +18,7 @@ import AddFolderDialog from '../components/AddFolderDialog'
 import CircularProgress from '@mui/material/CircularProgress';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useSelector, useDispatch } from 'react-redux'
-import { getFolders } from "../redux/actions/dataActions";
+import { getFolders, getResources } from "../redux/actions/dataActions";
 
 function Home(){
     const drawerWidth = 400;
@@ -26,7 +26,7 @@ function Home(){
     const [suggestion, setSuggestion] = React.useState("")
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch() 
-    const folders = useSelector((state) => state.data.filter((folder)=> !folder.parent_folder_id))
+    const topFolders = useSelector((state) => state.data.filter((folder)=> !folder.parent_folder_id))
 
   
   if(!user.data && !user.loading){
@@ -34,8 +34,8 @@ function Home(){
   }
 
     useEffect(() => {
-        if(folders.length == 0){
-          dispatch(getFolders())
+        if(topFolders.length == 0){
+          dispatch(getFolders());
         }
       }, [])
 
@@ -80,7 +80,7 @@ return (
                   <AddFolderDialog  />
                 </ListItem>
             <Divider />
-            <LernList contents={folders} paddingLeft={4}  />
+            <LernList contents={topFolders} paddingLeft={4}  />
           </Box>
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
