@@ -26,7 +26,7 @@ function Home(){
     const [suggestion, setSuggestion] = React.useState("")
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch() 
-    const topFolders = useSelector((state) => state.data.filter((folder)=> !folder.parent_folder_id))
+    const topFolders = useSelector((state) => state.data.filter((item)=> !item.url && !item.parent_folder_id))
 
   
   if(!user.data && !user.loading){
@@ -40,6 +40,7 @@ function Home(){
       }, [])
 
       async function fetchSuggestion(){
+        dispatch(getResources())
         let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
         .then(r=> { if(r.ok) 
             return r.json()
