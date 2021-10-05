@@ -27,9 +27,19 @@ class Folder < ApplicationRecord
     end
   end
 
+
   def self.top_levels
     Folder.where.missing(:folder_contents)
     # ^^^ remember, missing :folder_contents means these folders are missing BEING instances of folder contents...AKA they are not nested anywhere
+  end
+
+  def parent_folder_id
+    fc = FolderContent.find_by(contentsable_id: self.id)
+    fc&.folder_id
+  end
+
+  def top_level
+    !FolderContent.where(contentsable_id: self.id).exists?
   end
 
   def has_contents
