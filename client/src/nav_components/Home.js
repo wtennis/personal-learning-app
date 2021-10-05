@@ -26,6 +26,7 @@ function Home(){
     const [suggestion, setSuggestion] = React.useState("")
     const user = useSelector((state) => state.user)
     const folders = useSelector((state) => state.data)
+    // fix this ^^^ to be just top level folders state.data.map(folder => folder...)
     const dispatch = useDispatch()
 
   if(!user.data && !user.loading){

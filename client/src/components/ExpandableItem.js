@@ -9,7 +9,7 @@ import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
 import { getFolderContents } from "../redux/actions/dataActions";
-import { useDispatch, useSelctor } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 function ExpandableItem({ item, paddingLeft}){
     const [open, setOpen] = useState(false);
@@ -18,6 +18,7 @@ function ExpandableItem({ item, paddingLeft}){
     const [renaming, setRenaming] = useState(false);
     const [folderName, setFolderName] = useState(item.name);
     const dispatch = useDispatch();
+    const reduxContents = useSelector((state)=> state.data.find(f => f.id === item.id))
 
     useEffect(() => {
         dispatch(getFolderContents(item.id))
@@ -34,6 +35,7 @@ function ExpandableItem({ item, paddingLeft}){
       const handleClick = () => {
         if (!renaming){
             setOpen(!open);
+            console.log('reduxContents:', reduxContents)
         }
       };
 
@@ -84,7 +86,7 @@ function ExpandableItem({ item, paddingLeft}){
                 </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-            <LernList contents={contents} paddingLeft ={padding}  />
+             <LernList contents={contents} paddingLeft ={padding}/>
         </Collapse>
         </>
     )
