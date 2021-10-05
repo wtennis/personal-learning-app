@@ -1,6 +1,5 @@
   
-  
-  
+
   export  function dataReducer(state = [], action) {
     switch (action.type) {
         case "data/getFolders":
@@ -8,12 +7,12 @@
         case "data/getResources":
             return state.concat(action.payload)
         case "data/renameItem":
+            console.log(action.payload)
             return state.map(item => {
-                if (item.name != action.payload.name){
+                if (item.id === action.payload.id){
+                    return {...item, name: action.payload.name}
+                };
                     return item
-                } else {
-                    return action.payload
-                }
             })
         default:
             return state;

@@ -16,11 +16,13 @@ function ExpandableItem({ item, paddingLeft}){
     const [open, setOpen] = useState(false);
     const [padding, setPadding] = useState(paddingLeft + 4)
     const [renaming, setRenaming] = useState(false);
-    const [folderName, setFolderName] = useState(item.name);
-    const reduxContents = useSelector((state)=> state.data.filter(thing => thing.parent_folder_id == item.id))
+    const contents = useSelector((state)=> state.data.filter(i => i.parent_folder_id == item.id))
+    const reduxItem = useSelector((state)=> state.data.find(i => i.id == item.id))
+    const [folderName, setFolderName] = useState(reduxItem.name);
     const dispatch = useDispatch();
 
       const handleClick = () => {
+        console.log('reduxItem:', reduxItem)
         if (!renaming){
             setOpen(!open);
         }
@@ -37,7 +39,7 @@ function ExpandableItem({ item, paddingLeft}){
     return (
         <>
         <ListItem sx={{ pl: paddingLeft }}>
-                    <EditMenu renaming={renaming} setRenaming={setRenaming}item={item}  />
+                    <EditMenu renaming={renaming} setRenaming={setRenaming}item={reduxItem}  />
             <ListItemButton onClick={handleClick}>
             {renaming?
                 <TextField 
@@ -51,14 +53,14 @@ function ExpandableItem({ item, paddingLeft}){
                     />
             :
                 <Typography noWrap> 
-                    {item.name}
+                    {reduxItem.name}
                 </Typography> 
             }
                     {open? <ExpandLess sx={{ ml: 2 }}/> : <ExpandMore sx={{ ml: 2 }}/>}
                 </ListItemButton>
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
-             <LernList contents={reduxContents} paddingLeft ={padding}/>
+             <LernList contents={contents} paddingLeft ={padding}/>
         </Collapse>
         </>
     )
