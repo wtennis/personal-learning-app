@@ -20,35 +20,18 @@ export function getResources() {
         })
         }
     }
-
-export function renameFolder(folderName, id) {
+    
+export function renameItem(target, id, newName) {
     return (dispatch) => {
-        fetch(`/folders/${id}`, {
+        fetch(`/${target}/${id}`, {
             method: "PATCH", 
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({name: folderName})
+            body: JSON.stringify({name: newName })
             })
             .then(r => {
                 if (r.ok){
-                    r.json().then((folder) => dispatch({ type: "data/renameFolder", payload: folder}));
+                    r.json().then((renamedItem) => dispatch({ type: "data/renameItem", payload: renamedItem}));
                 }
             })
         }
     }
-    
-    export function renameResource() {
-        return (dispatch) => {
-            // fetch(`/resources/${item.id}`, {
-            //     method: "PATCH", 
-            //     headers: {"Content-Type": "application/json"},
-            //     body: JSON.stringify({
-            //         name: itemName
-            //     })
-            //     })
-            //     .then(r => {
-            //         if (r.ok){
-            //             r.json();
-            //         }
-            //     })
-            }
-        }

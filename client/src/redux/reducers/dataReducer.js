@@ -7,7 +7,7 @@
             return state.concat(action.payload)
         case "data/getResources":
             return state.concat(action.payload)
-        case "data/renameFolder":
+        case "data/renameItem":
             return state.map(item => {
                 if (item.name != action.payload.name){
                     return item

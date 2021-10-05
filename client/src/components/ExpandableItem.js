@@ -8,7 +8,7 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
-import { renameFolder } from "../redux/actions/dataActions";
+import { renameItem } from "../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux"
 
 
@@ -30,26 +30,9 @@ function ExpandableItem({ item, paddingLeft}){
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
-
-            dispatch(renameFolder(folderName, item.id))
-
-            // fetch(`/folders/${item.id}`, {
-            //     method: "PATCH", 
-            //     headers: {"Content-Type": "application/json"},
-            //     body: JSON.stringify({
-            //         name: folderName
-            //     })
-            //     })
-            //     .then(r => {
-            //         if (r.ok){
-            //             r.json();
-            //         }
-            //     })
-         
+            dispatch(renameItem("folders", item.id, folderName))         
         }
-    };
-
-
+      };
 
     return (
         <>

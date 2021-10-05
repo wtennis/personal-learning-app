@@ -4,7 +4,7 @@ import { useState } from 'react';
 import EditMenu from './EditMenu';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import { renameFolder, renameResource } from "../redux/actions/dataActions";
+import { renameItem } from "../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux"
 
 
@@ -14,46 +14,14 @@ function Item({ item, paddingLeft}){
     const dispatch = useDispatch();
 
       const handleRename = (e) => {
-    
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
-
-            item.url? 
-
-            // dispatch(renameResource());
-
-            fetch(`/resources/${item.id}`, {
-                method: "PATCH", 
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    name: itemName
-                })
-                })
-                .then(r => {
-                    if (r.ok){
-                        r.json();
-                    }
-                })
-        : 
-
-            // dispatch(renameFolder(itemName, item.id))
-
-            fetch(`/folders/${item.id}`, {
-                method: "PATCH", 
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    name: itemName
-                })
-                })
-                .then(r => {
-                    if (r.ok){
-                        r.json();
-                    }
-                })
-
+            
+            const target = item.url? "resources" : "folders"
+            dispatch(renameItem(target, item.id, itemName))
         }
-    };
+    }
 
     return(
         <ListItem sx={{ pl: paddingLeft }}>
