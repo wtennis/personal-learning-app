@@ -8,7 +8,7 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
-import { renameItem } from "../redux/actions/dataActions";
+import { renameFolder } from "../redux/actions/dataActions";
 import { useSelector, useDispatch } from "react-redux"
 
 
@@ -20,47 +20,31 @@ function ExpandableItem({ item, paddingLeft}){
     const reduxContents = useSelector((state)=> state.data.filter(thing => thing.parent_folder_id == item.id))
     const dispatch = useDispatch();
 
-    // useEffect(() => {
-    //     dispatch(getFolderContents(item.id))
-    //     fetch(`/folder_contents/${item.id}`)
-    //     .then(r=> {
-    //     if (r.ok){
-    //         r.json().then((res) => {
-    //         setContents(res);
-    //         });
-    //     };
-    //     });
-    //   }, [item.id])
-
       const handleClick = () => {
         if (!renaming){
             setOpen(!open);
         }
       };
 
-      const handleRename = (e) => {
-        const itemType = item.url? "Resource":"Folder"
-        console.log('item type:', itemType)
-
-        
+      const handleRename = (e) => {        
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
 
-            // dispatch(renameItem())
+            dispatch(renameFolder(folderName, item.id))
 
-            fetch(`/folders/${item.id}`, {
-                method: "PATCH", 
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({
-                    name: folderName
-                })
-                })
-                .then(r => {
-                    if (r.ok){
-                        r.json();
-                    }
-                })
+            // fetch(`/folders/${item.id}`, {
+            //     method: "PATCH", 
+            //     headers: {"Content-Type": "application/json"},
+            //     body: JSON.stringify({
+            //         name: folderName
+            //     })
+            //     })
+            //     .then(r => {
+            //         if (r.ok){
+            //             r.json();
+            //         }
+            //     })
          
         }
     };

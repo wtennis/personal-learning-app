@@ -4,22 +4,26 @@ import { useState } from 'react';
 import EditMenu from './EditMenu';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import { renameFolder, renameResource } from "../redux/actions/dataActions";
+import { useSelector, useDispatch } from "react-redux"
+
 
 function Item({ item, paddingLeft}){
     const [renaming, setRenaming] = useState(false);
     const [itemName, setItemName] = useState(item.name);
+    const dispatch = useDispatch();
 
       const handleRename = (e) => {
-        const itemType = item.url? "Resource":"Folder"
-        console.log('item type:', itemType)
-
+    
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
 
-            itemType == "Folder"? 
+            item.url? 
 
-            fetch(`/folders/${item.id}`, {
+            // dispatch(renameResource());
+
+            fetch(`/resources/${item.id}`, {
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
@@ -33,7 +37,9 @@ function Item({ item, paddingLeft}){
                 })
         : 
 
-            fetch(`/resources/${item.id}`, {
+            // dispatch(renameFolder(itemName, item.id))
+
+            fetch(`/folders/${item.id}`, {
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({

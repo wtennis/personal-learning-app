@@ -21,34 +21,34 @@ export function getResources() {
         }
     }
 
-export function renameItem() {
+export function renameFolder(folderName, id) {
     return (dispatch) => {
-        // fetch(`/folders/${item.id}`, {
-        //     method: "PATCH", 
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify({
-        //         name: folderName,
-        //         type: item.type
-        //     })
-        //     })
-        //     .then(r => {
-        //         if (r.ok){
-        //             r.json();
-        //         }
-        //     })
+        fetch(`/folders/${id}`, {
+            method: "PATCH", 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({name: folderName})
+            })
+            .then(r => {
+                if (r.ok){
+                    r.json().then((folder) => dispatch({ type: "data/renameFolder", payload: folder}));
+                }
+            })
         }
     }
     
-
-
-
-// export function getFolderContents(id) {
-//     return (dispatch) => {
-//         fetch(`/folder_contents/${id}`)
-//         .then(r=> {
-//         if (r.ok){
-//             r.json().then((contents) => dispatch({ type: "folder/getFolderContents", payload: {contents: contents, id: id}}));
-//         };
-//         })
-//         }
-//     }
+    export function renameResource() {
+        return (dispatch) => {
+            // fetch(`/resources/${item.id}`, {
+            //     method: "PATCH", 
+            //     headers: {"Content-Type": "application/json"},
+            //     body: JSON.stringify({
+            //         name: itemName
+            //     })
+            //     })
+            //     .then(r => {
+            //         if (r.ok){
+            //             r.json();
+            //         }
+            //     })
+            }
+        }
