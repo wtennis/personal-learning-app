@@ -13,7 +13,8 @@ import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddNestedItemDialog from './AddNestedItemDialog';
 import NoteDialog from './NoteDialog';
 import Badge from '@mui/material/Badge';
-
+import { useDispatch } from 'react-redux'
+import { deleteItem } from "../redux/actions/dataActions";
 
 const StyledMenu = styled((props) => (
   <Menu
@@ -63,6 +64,8 @@ export default function EditMenu( { item, renaming, setRenaming }) {
   const [openNoteDialog, setOpenNoteDialog] = React.useState(false);
   const [type, setType] = React.useState(null);
   const [noteType, setNoteType] = React.useState(null);
+  const itemType = item.url? "resource" : "folder"
+  const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -73,12 +76,11 @@ export default function EditMenu( { item, renaming, setRenaming }) {
   };
 
   async function handleDelete(){
-    const target = item.type == "Resource" ? "resources" : "folders"
+    const target = itemType + 's'
+    console.log(target)
     
-    let response = await fetch(`${target}/${item.id}`, { method: "DELETE" })
-    .then(
-
-        )
+    // let response = await fetch(`${target}/${item.id}`, { method: "DELETE" })
+    dispatch(deleteItem(target, item.id))
       handleClose();
   }
 

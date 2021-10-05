@@ -50,7 +50,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
             variant="standard"
           />
           <EmojiSelect emoji={emoji} setEmoji={setEmoji}/>
-          {type == "Resource" ? 
+          {type === "Resource" ? 
                 <TextField
                 autoFocus
                 margin="dense"
@@ -69,11 +69,11 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
                 label="public"
                 />
         }
-        {type == "Resource" ? null : "public"}
+        {type === "resource" ? null : "public"}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
-          <Button onClick={type == "Resource" ? handleCreateResource : handleCreateFolder}>Create</Button>
+          <Button onClick={type === "resource" ? handleCreateResource : handleCreateFolder}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>

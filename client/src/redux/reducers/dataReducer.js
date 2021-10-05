@@ -18,6 +18,8 @@
             return [...state, action.payload]
         case "data/createResource":
             return [...state, action.payload]
+        case "data/deleteItem":
+            return state.filter((item) => item.id !== action.payload);
         default:
             return state;
         }
