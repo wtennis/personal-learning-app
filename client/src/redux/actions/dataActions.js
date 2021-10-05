@@ -23,12 +23,19 @@ export function getResources() {
 
 export function renameItem() {
     return (dispatch) => {
-        fetch('/resources')
-        .then(r=> {
-            if (r.ok){
-            r.json().then((resources) => dispatch({ type: "data/getResources", payload: resources}));
-            }
-        })
+        // fetch(`/folders/${item.id}`, {
+        //     method: "PATCH", 
+        //     headers: {"Content-Type": "application/json"},
+        //     body: JSON.stringify({
+        //         name: folderName,
+        //         type: item.type
+        //     })
+        //     })
+        //     .then(r => {
+        //         if (r.ok){
+        //             r.json();
+        //         }
+        //     })
         }
     }
     

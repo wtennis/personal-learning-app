@@ -10,6 +10,9 @@ function Item({ item, paddingLeft}){
     const [itemName, setItemName] = useState(item.name);
 
       const handleRename = (e) => {
+        const itemType = item.url? "Resource":"Folder"
+        console.log('item type:', itemType)
+
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
@@ -19,7 +22,7 @@ function Item({ item, paddingLeft}){
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
                     name: itemName,
-                    type: item.type
+                    type: itemType
                 })
                 })
                 .then(r => {

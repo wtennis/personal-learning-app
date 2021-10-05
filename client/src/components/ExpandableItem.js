@@ -8,8 +8,9 @@ import LernList from './LernList';
 import Collapse from '@mui/material/Collapse';
 import EditMenu from './EditMenu';
 import TextField from '@mui/material/TextField';
-// import { getFolderContents } from "../redux/actions/dataActions";
-import { useSelector } from "react-redux"
+import { renameItem } from "../redux/actions/dataActions";
+import { useSelector, useDispatch } from "react-redux"
+
 
 function ExpandableItem({ item, paddingLeft}){
     const [open, setOpen] = useState(false);
@@ -17,6 +18,7 @@ function ExpandableItem({ item, paddingLeft}){
     const [renaming, setRenaming] = useState(false);
     const [folderName, setFolderName] = useState(item.name);
     const reduxContents = useSelector((state)=> state.data.filter(thing => thing.parent_folder_id == item.id))
+    const dispatch = useDispatch();
 
     // useEffect(() => {
     //     dispatch(getFolderContents(item.id))
@@ -33,21 +35,25 @@ function ExpandableItem({ item, paddingLeft}){
       const handleClick = () => {
         if (!renaming){
             setOpen(!open);
-            console.log('reduxContents:', reduxContents)
         }
       };
 
       const handleRename = (e) => {
+        const itemType = item.url? "Resource":"Folder"
+        console.log('item type:', itemType)
+
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
+
+            // dispatch(renameItem())
 
             fetch(`/folders/${item.id}`, {
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
                     name: folderName,
-                    type: item.type
+                    type: itemType
                 })
                 })
                 .then(r => {
