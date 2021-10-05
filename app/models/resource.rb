@@ -4,4 +4,8 @@ class Resource < ApplicationRecord
 
     validates :url, presence: true
 
+    def parent_folder_id
+      FolderContent.find_by(contentsable_id: self.id).folder_id
+    end
+
 end
