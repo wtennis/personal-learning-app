@@ -42,6 +42,7 @@ function ExpandableItem({ item, paddingLeft}){
         const itemType = item.url? "Resource":"Folder"
         console.log('item type:', itemType)
 
+        
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
@@ -61,6 +62,7 @@ function ExpandableItem({ item, paddingLeft}){
                         r.json();
                     }
                 })
+         
         }
     };
 

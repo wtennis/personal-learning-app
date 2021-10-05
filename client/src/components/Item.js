@@ -17,6 +17,8 @@ function Item({ item, paddingLeft}){
             setRenaming(false)
             e.preventDefault();
 
+            itemType == "Folder"? 
+
             fetch(`/folders/${item.id}`, {
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
@@ -30,6 +32,22 @@ function Item({ item, paddingLeft}){
                         r.json();
                     }
                 })
+        : 
+
+            fetch(`/folders/${item.id}`, {
+                method: "PATCH", 
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({
+                    name: itemName,
+                    type: itemType
+                })
+                })
+                .then(r => {
+                    if (r.ok){
+                        r.json();
+                    }
+                })
+
         }
     };
 
