@@ -101,7 +101,7 @@ return (
                 mx="190px"
                 style={{backgroundColor: "#FFF6EC", borderRadius: "2em"}}
                 >
-                <Typography variant="h4">
+                <Typography sx={{p: '22px'}}variant="h5">
                   {suggestion}
                 </Typography>
               </Box>
