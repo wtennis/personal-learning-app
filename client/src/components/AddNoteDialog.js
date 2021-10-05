@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-export default function NoteDialog({ openDialog, setOpenDialog, type, note, parent_id }) {
+export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, parent_id }) {
   const [noteContent, setNoteContent] = React.useState(note? note.text : "")
 
   const handleClick = () => {
@@ -43,9 +43,7 @@ function handleUpdateNote(){
       text: noteContent,
     })
 })
-.then(res => {
-  res.json(); 
-  });
+.then(res => res.json());
 }
 
 function handleDeleteNote(){
@@ -54,10 +52,7 @@ function handleDeleteNote(){
     return
   };
   fetch(`/notes/${note.id}`, { method: "DELETE"})
-    .then(res => {
-    res.json(); 
-   
-    });
+    .then(res => res.json());
 }
 
   return (

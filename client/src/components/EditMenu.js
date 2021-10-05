@@ -11,7 +11,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CreateNewFolderIcon from '@mui/icons-material/CreateNewFolder';
 import AddLinkIcon from '@mui/icons-material/AddLink';
 import AddNestedItemDialog from './AddNestedItemDialog';
-import NoteDialog from './NoteDialog';
+import AddNoteDialog from './AddNoteDialog';
 import Badge from '@mui/material/Badge';
 import { useDispatch } from 'react-redux'
 import { deleteItem } from "../redux/actions/dataActions";
@@ -62,9 +62,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openNoteDialog, setOpenNoteDialog] = React.useState(false);
-  const [type, setType] = React.useState(null);
-  const [noteType, setNoteType] = React.useState(null);
-  const itemType = item.url? "resource" : "folder"
+  const itemType = item.url? "Resource" : "Folder"
   const dispatch = useDispatch();
 
   const open = Boolean(anchorEl);
@@ -75,13 +73,10 @@ export default function EditMenu( { item, renaming, setRenaming }) {
     setAnchorEl(null);
   };
 
-  async function handleDelete(){
-    const target = itemType + 's'
-    console.log(target)
-    
-    // let response = await fetch(`${target}/${item.id}`, { method: "DELETE" })
+  function handleDelete(){
+    const target = itemType.toLowerCase + 's'    
     dispatch(deleteItem(target, item.id))
-      handleClose();
+    handleClose();
   }
 
   function handleRename() {
@@ -89,16 +84,13 @@ export default function EditMenu( { item, renaming, setRenaming }) {
     setRenaming(!renaming);
   }
 
-  function handleAddNestedItem(type){
+  function handleAddNestedItem(){
     handleClose();
-    setType(type);
     setOpenDialog(!openDialog);
   }
 
-
-  function handleAddNote(type){
+  function handleAddNote(){
     handleClose();
-    setNoteType(type);
     setOpenNoteDialog(!openNoteDialog)
   }
 
@@ -130,22 +122,15 @@ export default function EditMenu( { item, renaming, setRenaming }) {
           Rename
         </MenuItem>
 
-        {item.type == "Resource"? 
-            <MenuItem onClick={() => handleAddNote("Resource")} disableRipple>
-              <NoteAddIcon />
-              {item.notes.length>0? "Open Note": "Add Note"}
-            </MenuItem> 
-          :
-            <MenuItem onClick={() => handleAddNote("Folder")} disableRipple>
-              <NoteAddIcon />
-              {item.notes.length>0? "Open Note": "Add Note"}
-            </MenuItem> 
-        }
+        <MenuItem onClick={() => handleAddNote()} disableRipple>
+          <NoteAddIcon />
+          {item.notes.length>0? "Open Note": "Add Note"}
+        </MenuItem> 
 
         {item.type == "Resource"? 
             null 
           :
-              <MenuItem onClick={() => handleAddNestedItem("Folder")} disableRipple>
+              <MenuItem onClick={() => handleAddNestedItem()} disableRipple>
                 <CreateNewFolderIcon />
                 Add Folder
               </MenuItem> 
@@ -158,6 +143,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
               Add Resource
             </MenuItem>
         }
+
         <Divider sx={{ my: 0.5 }} />
         <MenuItem onClick={handleDelete} disableRipple>
           <DeleteIcon />
@@ -167,17 +153,14 @@ export default function EditMenu( { item, renaming, setRenaming }) {
       <AddNestedItemDialog  parent_id={item.id} 
                             openDialog={openDialog} 
                             setOpenDialog={setOpenDialog} 
-                            type={type}
-                            
+                            type={itemType}
                             />
-      <NoteDialog  note={item.notes.length>0? item.notes[0] : false} 
-                      openDialog={openNoteDialog} 
-                      setOpenDialog={setOpenNoteDialog} 
-                      type={noteType} 
-                      parent_id={item.id}
-                      
-                      
-                      />
+      <AddNoteDialog  note={item.notes.length > 0? item.notes[0] : false} 
+                   openDialog={openNoteDialog} 
+                   setOpenDialog={setOpenNoteDialog} 
+                   type={itemType} 
+                   parent_id={item.id} 
+                   />
     </div>
   );
 }
