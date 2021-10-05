@@ -35,3 +35,24 @@ export function renameItem(target, id, newName) {
             })
         }
     }
+
+export function createFolder(name, emoji, isPublic) {
+    return (dispatch) => {
+        fetch('/folders', { 
+            method: "POST", 
+            headers: { 
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              name: name,
+              emoji: emoji,
+              is_public: isPublic
+            })
+        })
+        .then(r => {
+            if (r.ok){
+                r.json().then((newFolder) => dispatch({ type: "data/createFolder", payload: newFolder}));
+            }
+        })
+        }
+    }

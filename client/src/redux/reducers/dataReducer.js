@@ -14,6 +14,8 @@
                 };
                     return item
             })
+        case "data/createFolder":
+            return [...state, action.payload]
         default:
             return state;
         }
