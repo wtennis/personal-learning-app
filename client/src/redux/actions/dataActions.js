@@ -79,3 +79,10 @@ export function createResource(name, emoji, url, parent_id) {
         })
         }
     }
+
+export function deleteItem(target, id) {
+    return (dispatch) => {
+        fetch(`${target}/${id}`, { method: "DELETE" })
+        .then(() => dispatch({ type: "data/deleteItem", payload: id}));  
+        }
+    }
