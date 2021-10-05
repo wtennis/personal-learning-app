@@ -53,8 +53,7 @@ function ExpandableItem({ item, paddingLeft}){
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                    name: folderName,
-                    type: itemType
+                    name: folderName
                 })
                 })
                 .then(r => {

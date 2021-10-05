@@ -23,8 +23,7 @@ function Item({ item, paddingLeft}){
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                    name: itemName,
-                    type: itemType
+                    name: itemName
                 })
                 })
                 .then(r => {
@@ -34,12 +33,11 @@ function Item({ item, paddingLeft}){
                 })
         : 
 
-            fetch(`/folders/${item.id}`, {
+            fetch(`/resources/${item.id}`, {
                 method: "PATCH", 
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({
-                    name: itemName,
-                    type: itemType
+                    name: itemName
                 })
                 })
                 .then(r => {
