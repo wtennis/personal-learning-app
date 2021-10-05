@@ -20,35 +20,18 @@ export function getResources() {
         })
         }
     }
-
-export function renameItem() {
+    
+export function renameItem(target, id, newName) {
     return (dispatch) => {
-        // fetch(`/folders/${item.id}`, {
-        //     method: "PATCH", 
-        //     headers: {"Content-Type": "application/json"},
-        //     body: JSON.stringify({
-        //         name: folderName,
-        //         type: item.type
-        //     })
-        //     })
-        //     .then(r => {
-        //         if (r.ok){
-        //             r.json();
-        //         }
-        //     })
+        fetch(`/${target}/${id}`, {
+            method: "PATCH", 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({name: newName })
+            })
+            .then(r => {
+                if (r.ok){
+                    r.json().then((renamedItem) => dispatch({ type: "data/renameItem", payload: renamedItem}));
+                }
+            })
         }
     }
-    
-
-
-
-// export function getFolderContents(id) {
-//     return (dispatch) => {
-//         fetch(`/folder_contents/${id}`)
-//         .then(r=> {
-//         if (r.ok){
-//             r.json().then((contents) => dispatch({ type: "folder/getFolderContents", payload: {contents: contents, id: id}}));
-//         };
-//         })
-//         }
-//     }

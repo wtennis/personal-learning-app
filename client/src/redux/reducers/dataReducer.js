@@ -7,16 +7,14 @@
             return state.concat(action.payload)
         case "data/getResources":
             return state.concat(action.payload)
-        // case "folder/getFolderContents":
-        //     return state.map(folder => {
-        //         if (!folder.has_contents) {
-        //             return folder
-        //         } 
-        //         else if (folder.id === action.payload.id){
-        //             return {...folder, contents: action.payload.contents}
-        //         }
-        //             return folder;
-        //     });
+        case "data/renameItem":
+            return state.map(item => {
+                if (item.name != action.payload.name){
+                    return item
+                } else {
+                    return action.payload
+                }
+            })
         default:
             return state;
         }
