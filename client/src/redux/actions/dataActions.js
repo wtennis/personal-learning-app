@@ -1,5 +1,4 @@
 export function getFolders() {
-    console.log('getFolders')
 
     return (dispatch) => {
         fetch('/folders')
@@ -12,7 +11,6 @@ export function getFolders() {
     }
 
 export function getResources() {
-    console.log('getResources')
     return (dispatch) => {
         fetch('/resources')
         .then(r=> {
@@ -23,13 +21,27 @@ export function getResources() {
         }
     }
 
-export function getFolderContents(id) {
+export function renameItem() {
     return (dispatch) => {
-        fetch(`/folder_contents/${id}`)
+        fetch('/resources')
         .then(r=> {
-        if (r.ok){
-            r.json().then((contents) => dispatch({ type: "folder/getFolderContents", payload: {contents: contents, id: id}}));
-        };
+            if (r.ok){
+            r.json().then((resources) => dispatch({ type: "data/getResources", payload: resources}));
+            }
         })
         }
     }
+    
+
+
+
+// export function getFolderContents(id) {
+//     return (dispatch) => {
+//         fetch(`/folder_contents/${id}`)
+//         .then(r=> {
+//         if (r.ok){
+//             r.json().then((contents) => dispatch({ type: "folder/getFolderContents", payload: {contents: contents, id: id}}));
+//         };
+//         })
+//         }
+//     }
