@@ -5,7 +5,6 @@ import EditMenu from './EditMenu';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 
-
 function Item({ item, paddingLeft}){
     const [renaming, setRenaming] = useState(false);
     const [itemName, setItemName] = useState(item.name);
