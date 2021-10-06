@@ -33,6 +33,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
 
   const handleChange = (event) => {
     setIsPublic(event.target.checked);
+    console.log(type)
   };
 
   return (
@@ -73,7 +74,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
-          <Button onClick={type === "resource" ? handleCreateResource : handleCreateFolder}>Create</Button>
+          <Button onClick={type === "Resource" ? handleCreateResource : handleCreateFolder}>Create</Button>
         </DialogActions>
       </Dialog>
     </div>
