@@ -62,6 +62,8 @@ export default function EditMenu( { item, renaming, setRenaming }) {
   const [editing, setEditing] = React.useState(false);
   const [openDialog, setOpenDialog] = React.useState(false);
   const [openNoteDialog, setOpenNoteDialog] = React.useState(false);
+  const [itemTypeToAdd, setItemTypeToAdd] = React.useState("Folder");
+
   const itemType = item.url? "Resource" : "Folder"
   const dispatch = useDispatch();
 
@@ -74,7 +76,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
   };
 
   function handleDelete(){
-    const target = itemType.toLowerCase + 's'    
+    const target = itemType.toLowerCase() + 's'    
     dispatch(deleteItem(target, item.id))
     handleClose();
   }
@@ -84,8 +86,9 @@ export default function EditMenu( { item, renaming, setRenaming }) {
     setRenaming(!renaming);
   }
 
-  function handleAddNestedItem(){
+  function handleAddNestedItem(type){
     handleClose();
+    setItemTypeToAdd(type);
     setOpenDialog(!openDialog);
   }
 
@@ -127,15 +130,15 @@ export default function EditMenu( { item, renaming, setRenaming }) {
           {item.notes.length>0? "Open Note": "Add Note"}
         </MenuItem> 
 
-        {item.type == "Resource"? 
+        {itemType == "Resource"? 
             null 
           :
-              <MenuItem onClick={() => handleAddNestedItem()} disableRipple>
+              <MenuItem onClick={() => handleAddNestedItem("Folder")} disableRipple>
                 <CreateNewFolderIcon />
                 Add Folder
               </MenuItem> 
         }
-        {item.type == "Resource"? 
+        {itemType == "Resource"? 
             null 
           :
             <MenuItem onClick={() => handleAddNestedItem("Resource")} disableRipple>
@@ -153,7 +156,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
       <AddNestedItemDialog  parent_id={item.id} 
                             openDialog={openDialog} 
                             setOpenDialog={setOpenDialog} 
-                            type={itemType}
+                            type={itemTypeToAdd}
                             />
       <AddNoteDialog  note={item.notes.length > 0? item.notes[0] : false} 
                    openDialog={openNoteDialog} 
