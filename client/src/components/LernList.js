@@ -14,7 +14,7 @@ function LernList({ contents, paddingLeft}){
                     (item.has_contents? 
                         <ExpandableItem key={index} itemId={item.id} paddingLeft={paddingLeft}  />
                         :
-                        <Item key={index} itemId={item.id} paddingLeft={paddingLeft}  />)
+                        <Item key={index} item={item} paddingLeft={paddingLeft}  />)
                     ))}
                     </>
             : 

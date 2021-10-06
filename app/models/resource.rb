@@ -1,6 +1,6 @@
+
 class Resource < ApplicationRecord
     has_many :folder_contents, as: :contentsable
-
     validates :url, presence: true
 
     def parent_folder_id
@@ -8,4 +8,10 @@ class Resource < ApplicationRecord
         fc&.folder_id
     end
 
+    def owned_by
+        Folder.find(self.parent_folder_id).user
+    end
+
+
 end
+

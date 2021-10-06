@@ -16,8 +16,8 @@ function ExpandableItem({ itemId, paddingLeft}){
     const [open, setOpen] = useState(false);
     const [padding, setPadding] = useState(paddingLeft + 4)
     const [renaming, setRenaming] = useState(false);
-    const contents = useSelector((state)=> state.data.filter(i => i.parent_folder_id == itemId))
-    const item = useSelector((state)=> state.data.find(item => item.id == itemId))
+    const item = useSelector((state)=> state.data.find(item => !item.url && item.id === itemId))
+    const contents = useSelector((state)=> state.data.filter(i => i.parent_folder_id === item.id))
     const [folderName, setFolderName] = useState(item.name);
     const dispatch = useDispatch();
 
@@ -25,6 +25,7 @@ function ExpandableItem({ itemId, paddingLeft}){
         if (!renaming){
             setOpen(!open);
         }
+        console.log(contents)
       };
 
       const handleRename = (e) => {        

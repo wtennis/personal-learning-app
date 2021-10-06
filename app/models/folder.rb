@@ -33,12 +33,12 @@ class Folder < ApplicationRecord
   end
 
   def parent_folder_id
-    fc = FolderContent.find_by(contentsable_id: self.id)
+    fc = FolderContent.find_by(contentsable_id: self.id, contentsable_type: self.class.name)
     fc&.folder_id
   end
 
   def top_level
-    !FolderContent.where(contentsable_id: self.id).exists?
+    !FolderContent.where(contentsable_id: self.id, contentsable_type: self.class.name).exists?
   end
 
   def has_contents
