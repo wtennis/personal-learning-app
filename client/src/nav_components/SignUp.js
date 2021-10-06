@@ -34,7 +34,7 @@ export default function SignUp() {
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
-  if (user){
+  if (user.data){
     history.push('/')
   };
 

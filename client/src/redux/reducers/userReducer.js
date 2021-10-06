@@ -1,6 +1,6 @@
 
 const initialState = {
-    loading: false, 
+    status: "idle", 
     data: null
   };
   
@@ -9,16 +9,19 @@ const initialState = {
         case "user/userLoaded":
             return {
                 ...state,
-                loading: false,
+                status: "loaded",
                 data: action.payload,
             };
         case "user/userLoading":
             return {
                 ...state,
-                loading: true,
+                status: "loading",
             };
         case "user/noUser":
-            return initialState;
+            return {
+                data: null,
+                status: "unfound",
+            };        
         default:
             return state;
     }
