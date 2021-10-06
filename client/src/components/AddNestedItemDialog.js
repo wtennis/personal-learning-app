@@ -34,7 +34,6 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
 
   const handleChange = (event) => {
     setIsPublic(event.target.checked);
-    console.log(type)
   };
 
   return (

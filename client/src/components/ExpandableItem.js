@@ -22,7 +22,6 @@ function ExpandableItem({ itemId, paddingLeft}){
     const dispatch = useDispatch();
 
       const handleClick = () => {
-        console.log('item:', item)
         if (!renaming){
             setOpen(!open);
         }

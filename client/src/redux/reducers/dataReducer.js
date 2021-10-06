@@ -8,7 +8,6 @@
         case "data/getResources":
             return state.concat(action.payload)
         case "data/renameItem":
-            console.log(action.payload)
             return state.map(item => {
                 if (item.id === action.payload.id){
                     return {...item, name: action.payload.name}
@@ -21,38 +20,13 @@
             return [...state, action.payload]
         case "data/deleteItem":
             return state.filter((item) => item.id !== action.payload);
-        case "data/createResourceNote":
-            return state.map(item => {
-                if (item.id === action.payload.id && item.url) {
-                  return {...item, notes: item.notes.concat(action.payload.note)}
-                };
-                  return item;
-              })
-        case "data/createFolderNote":
-            return state.map(item => {
-                if (item.id === action.payload.id && !item.url) {
-                    return {...item, notes: item.notes.concat(action.payload.note)}
-                };
-                    return item;
-                })
         case "data/updateNote":
             return state.map(item => {
-                if (item.id === action.payload.parent_id) {
-                  return {...item, notes: 
-                                {...item.notes,
-                                    text: action.payload.text
-                                }
-                         }
-                    }
-                  return item;
-              }) 
-        case "data/deleteNote":
-            return state.map(item => {
-                if (item.id === action.payload) {
-                  return {...item, notes: []}
-                    }
-                  return item;
-              }) 
+                if (item.id === action.payload.id){
+                    return {...item, note: action.payload.note}
+                };
+                    return item
+            })
         default:
             return state;
         }

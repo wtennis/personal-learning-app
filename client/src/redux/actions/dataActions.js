@@ -75,3 +75,19 @@ export function deleteItem(target, id) {
         .then(() => dispatch({ type: "data/deleteItem", payload: id}));  
         }
     }
+
+
+export function updateNote(target, id, note) {
+    return (dispatch) => {
+        fetch(`/${target}/${id}`, {
+            method: "PATCH", 
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({note: note})
+            })
+            .then(r => {
+                if (r.ok){
+                    r.json().then((patchedItem) => dispatch({ type: "data/updateNote", payload: {id: id, note: patchedItem.note}}));
+                }
+            })
+        }
+    }
