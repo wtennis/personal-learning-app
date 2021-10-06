@@ -1,9 +1,8 @@
 class FoldersController < ApplicationController
     
     def index
-        folders = Folder.all
-        resources = Resource.all
-        items = folders + resources
+        user = User.find_by!(id: session[:user_id])
+        items = user.folders + user.resources
         render json: items
     end
 

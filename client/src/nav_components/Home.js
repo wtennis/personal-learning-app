@@ -34,10 +34,10 @@ function Home(){
   }
 
     useEffect(() => {
-        if(topFolders.length == 0){
+        if(user.data){
           dispatch(getData());
         }
-      }, [])
+      }, [user.data])
 
       async function fetchSuggestion(){
         let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
@@ -46,8 +46,6 @@ function Home(){
         })
         setSuggestion(response.activity)
     }
-
-  
 
 return (
   <>
@@ -81,12 +79,16 @@ return (
                   <AddFolderDialog  />
                 </ListItem>
             <Divider />
-            <LernList contents={topFolders} paddingLeft={4}  />
+            <LernList contents={topFolders} paddingLeft={4}/>
           </Box>
         </Drawer>
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
               <Typography sx={{mb: 2}}variant="h4">Welcome, {user.data.username}</Typography>
+              <Typography sx={{mb: 2}}variant="h4">topFolders:</Typography>
+              {topFolders.map(f => <li key={f.name}>{f.name}</li>)}
+              <Button onClick={console.log(topFolders)}>console.log topFolders</Button>
+
               <Box  display="flex"
                 justifyContent="center"
                 alignItems="center"
