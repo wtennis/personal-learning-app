@@ -69,10 +69,10 @@ export function createResource(name, emoji, url, parent_id) {
         }
     }
 
-export function deleteItem(target, id) {
+export function deleteItem(itemType, id) {
     return (dispatch) => {
-        fetch(`${target}/${id}`, { method: "DELETE" })
-        .then(() => dispatch({ type: "data/deleteItem", payload: id}));  
+        fetch(`${itemType.toLowerCase()+'s'}/${id}`, { method: "DELETE" })
+        .then(() => dispatch({ type: `data/delete${itemType}`, payload: id}));  
         }
     }
 

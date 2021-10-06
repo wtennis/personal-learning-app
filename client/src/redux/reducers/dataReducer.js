@@ -18,8 +18,10 @@
             return [...state, action.payload]
         case "data/createResource":
             return [...state, action.payload]
-        case "data/deleteItem":
-            return state.filter((item) => item.id !== action.payload);
+        case "data/deleteFolder":
+            return state.filter((item) => item.url || item.id !== action.payload);
+        case "data/deleteResource":
+            return state.filter((item) => !item.url || item.id !== action.payload);
         case "data/updateNote":
             return state.map(item => {
                 if (item.id === action.payload.id){
