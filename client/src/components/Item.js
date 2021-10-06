@@ -18,9 +18,9 @@ function Item({ itemId, paddingLeft}){
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
-            
-            const target = item.url? "resources" : "folders"
-            dispatch(renameItem(target, item.id, itemName))
+        
+            const type = item.url? "Resource" : "Folder"
+            dispatch(renameItem(type, item.id, itemName))
         }
     }
 

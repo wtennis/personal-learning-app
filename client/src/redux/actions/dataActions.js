@@ -10,16 +10,16 @@ export function getData() {
         }
     }
     
-export function renameItem(target, id, newName) {
+export function renameItem(type, id, newName) {
     return (dispatch) => {
-        fetch(`/${target}/${id}`, {
+        fetch(`/${type.toLowerCase()+'s'}/${id}`, {
             method: "PATCH", 
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({name: newName })
             })
             .then(r => {
                 if (r.ok){
-                    r.json().then((renamedItem) => dispatch({ type: "data/renameItem", payload: renamedItem}));
+                    r.json().then((renamedItem) => dispatch({ type: `data/rename${type}`, payload: renamedItem}));
                 }
             })
         }
@@ -69,10 +69,10 @@ export function createResource(name, emoji, url, parent_id) {
         }
     }
 
-export function deleteItem(target, id) {
+export function deleteItem(type, id) {
     return (dispatch) => {
-        fetch(`${target}/${id}`, { method: "DELETE" })
-        .then(() => dispatch({ type: "data/deleteItem", payload: id}));  
+        fetch(`${type.toLowerCase()+'s'}/${id}`, { method: "DELETE" })
+        .then(() => dispatch({ type: `data/delete${type}`, payload: id}));  
         }
     }
 
