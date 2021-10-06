@@ -31,7 +31,7 @@ function ExpandableItem({ itemId, paddingLeft}){
         if (e.key === 'Enter') {
             setRenaming(false)
             e.preventDefault();
-            dispatch(renameItem("folders", itemId, folderName))         
+            dispatch(renameItem("Folder", itemId, folderName))         
         }
       };
 

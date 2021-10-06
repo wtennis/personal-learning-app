@@ -1,5 +1,3 @@
-  
-// CHANGE THE ITEM ACTIONS TO SPECIFIC FOLDER/RESOURCE ACTIONS, SO YOU DON'T HAVE TO CHECK ID AND ITEM TYPE IN THE CASE/SWITCH STATEMENT
 
   export  function dataReducer(state = [], action) {
     switch (action.type) {
@@ -7,9 +5,16 @@
             return action.payload
         case "data/getResources":
             return state.concat(action.payload)
-        case "data/renameItem":
+        case "data/renameFolder":
             return state.map(item => {
-                if (item.id === action.payload.id){
+                if (!item.url && item.id === action.payload.id){
+                    return {...item, name: action.payload.name}
+                };
+                    return item
+            })
+        case "data/renameResource":
+            return state.map(item => {
+                if (item.url && item.id === action.payload.id){
                     return {...item, name: action.payload.name}
                 };
                     return item
