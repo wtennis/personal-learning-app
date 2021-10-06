@@ -74,7 +74,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
   };
 
   function handleDelete(){
-    const target = itemType.toLowerCase + 's'    
+    const target = itemType.toLowerCase() + 's'    
     dispatch(deleteItem(target, item.id))
     handleClose();
   }
