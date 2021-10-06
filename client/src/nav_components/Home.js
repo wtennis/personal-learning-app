@@ -38,6 +38,7 @@ function Home(){
           dispatch(getFolders());
           dispatch(getResources());
         }
+       
       }, [])
 
       async function fetchSuggestion(){
@@ -48,6 +49,7 @@ function Home(){
         setSuggestion(response.activity)
     }
 
+  
 
 return (
   <>
