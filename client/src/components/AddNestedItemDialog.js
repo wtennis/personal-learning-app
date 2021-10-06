@@ -12,13 +12,14 @@ import { useDispatch } from 'react-redux'
 
 export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDialog, type }) {
   const [isPublic, setIsPublic] = React.useState(false);
-  const [emoji, setEmoji] = React.useState('');
+  const [emoji, setEmoji] = React.useState('📁');
   const [itemName, setItemName] = React.useState([]);
   const [url, setUrl] = React.useState("");
   const dispatch = useDispatch();
 
   const handleClick = () => {
     setOpenDialog(!openDialog);
+    setEmoji('📁');
   };
 
   function handleCreateFolder(){

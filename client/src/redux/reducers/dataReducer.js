@@ -39,14 +39,21 @@
             return state.map(item => {
                 if (item.id === action.payload.parent_id) {
                   return {...item, notes: 
-                                {...item.notes[0],
+                                {...item.notes,
                                     text: action.payload.text
                                 }
                          }
                     }
                   return item;
               }) 
-              default:
+        case "data/deleteNote":
+            return state.map(item => {
+                if (item.id === action.payload) {
+                  return {...item, notes: []}
+                    }
+                  return item;
+              }) 
+        default:
             return state;
         }
       }

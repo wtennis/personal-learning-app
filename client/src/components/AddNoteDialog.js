@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux'
-import { createNote, updateNote } from "../redux/actions/noteActions";
+import { createNote, updateNote, deleteNote} from "../redux/actions/noteActions";
 
 
 export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, parent_id }) {
@@ -32,8 +32,7 @@ function handleDeleteNote(){
   if (!note){
     return
   };
-  fetch(`/notes/${note.id}`, { method: "DELETE"})
-    .then(res => res.json());
+    dispatch(deleteNote(note.id, parent_id))
 }
 
   return (
