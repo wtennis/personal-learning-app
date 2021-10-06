@@ -2,7 +2,9 @@ class FoldersController < ApplicationController
     
     def index
         folders = Folder.all
-        render json: folders
+        resources = Resource.all
+        items = folders + resources
+        render json: items
     end
 
     def destroy
@@ -29,13 +31,9 @@ class FoldersController < ApplicationController
     end
 
     def update
-      if params[:type] == "Resource"
-        item = Resource.find_by!(id: params[:id])
-      else 
-        item = Folder.find_by!(id: params[:id])
-      end
-      item.update!(item_params)
-      render json: item
+      folder = Folder.find_by!(id: params[:id])
+      folder.update!(rename_params)
+      render json: folder
     end
 
 
@@ -46,7 +44,7 @@ class FoldersController < ApplicationController
         params.permit(:name, :emoji, :is_public)
     end
 
-    def item_params
+    def rename_params
       params.permit(:name)
     end
 

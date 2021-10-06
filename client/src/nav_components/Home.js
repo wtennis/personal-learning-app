@@ -18,7 +18,7 @@ import AddFolderDialog from '../components/AddFolderDialog'
 import CircularProgress from '@mui/material/CircularProgress';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useSelector, useDispatch } from 'react-redux'
-import { getFolders, getResources } from "../redux/actions/dataActions";
+import { getData } from "../redux/actions/dataActions";
 
 function Home(){
     const drawerWidth = 400;
@@ -35,10 +35,8 @@ function Home(){
 
     useEffect(() => {
         if(topFolders.length == 0){
-          dispatch(getFolders());
-          dispatch(getResources());
+          dispatch(getData());
         }
-       
       }, [])
 
       async function fetchSuggestion(){
