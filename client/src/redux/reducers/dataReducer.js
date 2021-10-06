@@ -4,7 +4,7 @@
   export  function dataReducer(state = [], action) {
     switch (action.type) {
         case "data/getFolders":
-            return state.concat(action.payload)
+            return action.payload
         case "data/getResources":
             return state.concat(action.payload)
         case "data/renameItem":
@@ -29,12 +29,23 @@
                   return item;
               })
         case "data/createFolderNote":
-        return state.map(item => {
-            if (item.id === action.payload.id && !item.url) {
-                return {...item, notes: item.notes.concat(action.payload.note)}
-            };
-                return item;
-            })
+            return state.map(item => {
+                if (item.id === action.payload.id && !item.url) {
+                    return {...item, notes: item.notes.concat(action.payload.note)}
+                };
+                    return item;
+                })
+        case "data/updateNote":
+            return state.map(item => {
+                if (item.id === action.payload.parent_id) {
+                  return {...item, notes: 
+                                {...item.notes[0],
+                                    text: action.payload.text
+                                }
+                         }
+                    }
+                  return item;
+              }) 
               default:
             return state;
         }
