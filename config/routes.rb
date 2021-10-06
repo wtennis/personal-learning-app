@@ -1,10 +1,7 @@
 Rails.application.routes.draw do
   
-  # resources :notes, only: [:update, :destroy, :create]
   resources :resources, only: [:update, :destroy, :create]
   resources :folders, except: [:show]
-  # resources :users
-
 
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
