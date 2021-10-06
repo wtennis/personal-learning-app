@@ -99,7 +99,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
 
   return (
     <div>
-      <Badge color="primary" variant="dot" invisible={!item.notes.length>0}>
+      <Badge color="primary" variant="dot" invisible={!item.note}>
       <IconButton onMouseOver={() => setEditing(true)} 
                   onMouseLeave={() => setEditing(false)}
                   onClick={handleClick}
@@ -127,7 +127,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
 
         <MenuItem onClick={() => handleAddNote()} disableRipple>
           <NoteAddIcon />
-          {item.notes.length>0? "Open Note": "Add Note"}
+          {item.note? "Open Note": "Add Note"}
         </MenuItem> 
 
         {itemType == "Resource"? 
@@ -158,12 +158,12 @@ export default function EditMenu( { item, renaming, setRenaming }) {
                             setOpenDialog={setOpenDialog} 
                             type={itemTypeToAdd}
                             />
-      <AddNoteDialog  note={item.notes.length > 0? item.notes[0] : false} 
-                   openDialog={openNoteDialog} 
-                   setOpenDialog={setOpenNoteDialog} 
-                   type={itemType} 
-                   parent_id={item.id} 
-                   />
+      <AddNoteDialog  note={item.note} 
+                      openDialog={openNoteDialog} 
+                      setOpenDialog={setOpenNoteDialog} 
+                      type={itemType} 
+                      parent_id={item.id} 
+                      />
     </div>
   );
 }

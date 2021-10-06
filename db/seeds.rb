@@ -37,7 +37,6 @@ professional_dev = Folder.create(user_id: user1.id, name: 'Professional developm
         eqs_nest = FolderContent.create(folder_id: instruction.id, contentsable_id: eqs.id, contentsable_type: eqs.class.name)
 
 guitar_tabs = Folder.create(user_id: user1.id, name: 'Guitar tabs', emoji: '📁')
-n1 = Note.create(text: "Remember to practice at least once a week!", belongsable_id: guitar_tabs.id, belongsable_type: guitar_tabs.class.name)
     beatles = Folder.create(user_id: user1.id, name: 'Beatles', emoji: '📁')
     beatles_nest = FolderContent.create(folder_id: guitar_tabs.id, contentsable_id: beatles.id, contentsable_type: beatles.class.name)
         blackBird = Resource.create(name: "Blackbird", emoji: "🐦", url: "https://tabs.ultimate-guitar.com/tab/the_beatles/blackbird_tabs_180986")

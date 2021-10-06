@@ -32,7 +32,7 @@ class FoldersController < ApplicationController
 
     def update
       folder = Folder.find_by!(id: params[:id])
-      folder.update!(rename_params)
+      folder.update!(update_params)
       render json: folder
     end
 
@@ -44,8 +44,8 @@ class FoldersController < ApplicationController
         params.permit(:name, :emoji, :is_public)
     end
 
-    def rename_params
-      params.permit(:name)
+    def update_params
+      params.permit(:name, :note)
     end
 
 end

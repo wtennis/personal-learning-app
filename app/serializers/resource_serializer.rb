@@ -1,3 +1,3 @@
 class ResourceSerializer < ActiveModel::Serializer
-  attributes :id, :name, :url, :emoji, :notes, :parent_folder_id
+  attributes :id, :name, :url, :emoji, :parent_folder_id, :note
 end

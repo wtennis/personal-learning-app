@@ -6,34 +6,30 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux'
-import { createNote, updateNote, deleteNote} from "../redux/actions/noteActions";
+import { updateNote} from "../redux/actions/dataActions";
 
 
-export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, parent_id }) {
-  const [noteContent, setNoteContent] = React.useState(note? note.text : "")
+export default function AddNoteDialog({ openDialog, setOpenDialog, type, parent_id, note }) {
+  const [noteContent, setNoteContent] = React.useState(note)
   const dispatch = useDispatch();
+  const target = type.toLowerCase()+'s'
 
   const handleClick = () => {
     setOpenDialog(!openDialog);
   };
 
-  function handleCreateNote(){
+  function handleUpdateNote(){
     handleClick();
-    dispatch(createNote(noteContent, type, parent_id));
+    console.log('handleCreateNote in AddNoteDialog')
+    dispatch(updateNote(target, parent_id, noteContent));
 }
 
-function handleUpdateNote(){
-  handleClick();
-  dispatch(updateNote(note.id, parent_id, noteContent));
-}
 
-function handleDeleteNote(){
-  handleClick();
-  if (!note){
-    return
-  };
-    dispatch(deleteNote(note.id, parent_id))
-}
+  function handleDeleteNote(){
+    handleClick();
+    console.log('handleDeleteNote in AddNoteDialog')
+    dispatch(updateNote(target, parent_id, null));
+  }
 
   return (
     <div>
@@ -44,14 +40,14 @@ function handleDeleteNote(){
             minRows={15}
             placeholder="Note"
             style={{ width: 500 }}
-            value = {noteContent}
+            value = {noteContent? noteContent : ""}
             onChange={(e)=> setNoteContent(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
-          {noteContent.length>0? <Button onClick={handleDeleteNote} sx={{mr: '200px', color: "#c62828"}}><DeleteIcon/>Delete Note</Button>:null}
+          {note? <Button onClick={handleDeleteNote} sx={{mr: '200px', color: "#c62828"}}><DeleteIcon/>Delete Note</Button>:null}
           <Button onClick={handleClick}>Cancel</Button>
-          <Button onClick={note? handleUpdateNote : handleCreateNote}>Save Note</Button>
+          <Button onClick={handleUpdateNote}>Save Note</Button>
         </DialogActions>
       </Dialog>
     </div>

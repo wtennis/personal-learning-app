@@ -9,7 +9,7 @@ class ResourcesController < ApplicationController
 
     def update
         resource = Resource.find_by!(id: params[:id])
-        resource.update!(rename_params)
+        resource.update!(update_params)
         render json: resource
       end
   
@@ -29,8 +29,8 @@ class ResourcesController < ApplicationController
         params.permit(:name, :emoji, :url)
     end
     
-    def rename_params
-        params.permit(:name)
+    def update_params
+        params.permit(:name, :note)
     end
   
 end
