@@ -29,7 +29,7 @@ function Home(){
     const topFolders = useSelector((state) => state.data.filter((item)=> !item.url && !item.parent_folder_id))
 
   
-  if(!user.data && !user.loading){
+  if(!user.data && user.status === "unfound"){
     history.push("/login");
   }
 
@@ -51,7 +51,7 @@ function Home(){
 
 return (
   <>
-  {user.loading || !user.data?  
+  {!user.data?  
       <Box  display="flex"
             justifyContent="center"
             alignItems="center"
