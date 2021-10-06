@@ -5,8 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+puts '🔥  Destroying Data  🔥'
 
-puts '🌱 🌱 🌱 Seeding 🌱 🌱 🌱'
+FolderContent.destroy_all
+Resource.destroy_all
+Folder.destroy_all
+User.destroy_all
+
+puts '🌱  Seeding Data  🌱'
 
 # Notes:
 # An instance of FolderContent class (e.g. FolderContent.first) refers to the contents of a parent folder. The parent folder is the folder_id of the FolderContent instance
@@ -52,6 +58,4 @@ guitar_tabs = Folder.create(user_id: user1.id, name: 'Guitar tabs', emoji: '📁
         bars_nest = FolderContent.create(folder_id: guitar_tabs.id, contentsable_id: r1.id, contentsable_type: r1.class.name)
         kansas_nest = FolderContent.create(folder_id: guitar_tabs.id, contentsable_id: r2.id, contentsable_type: r2.class.name)
 
-
-
-puts '✅ Done Seeding ✅'
+puts '✅  Done Seeding  ✅'
