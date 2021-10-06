@@ -3,7 +3,7 @@
 
   export  function dataReducer(state = [], action) {
     switch (action.type) {
-        case "data/getFolders":
+        case "data/getData":
             return action.payload
         case "data/getResources":
             return state.concat(action.payload)

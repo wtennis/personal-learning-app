@@ -1,22 +1,11 @@
-export function getFolders() {
+export function getData() {
 
     return (dispatch) => {
         fetch('/folders')
         .then(r=> {
           if (r.ok){
-            r.json().then((folders) => dispatch({ type: "data/getFolders", payload: folders}));
+            r.json().then((data) => dispatch({ type: "data/getData", payload: data}));
           }
-        })
-        }
-    }
-
-export function getResources() {
-    return (dispatch) => {
-        fetch('/resources')
-        .then(r=> {
-            if (r.ok){
-            r.json().then((resources) => dispatch({ type: "data/getResources", payload: resources}));
-            }
         })
         }
     }
