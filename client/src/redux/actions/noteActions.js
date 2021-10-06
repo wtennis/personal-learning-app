@@ -51,3 +51,11 @@ export function updateNote(note_id, parent_id, text) {
         })
         }
     }
+
+
+export function deleteNote(id, parent_id) {
+    return (dispatch) => {
+        fetch(`notes/${id}`, { method: "DELETE" })
+        .then(() => dispatch({ type: "data/deleteNote", payload: parent_id}));  
+        }
+    }
