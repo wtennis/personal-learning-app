@@ -1,6 +1,6 @@
 
 const initialState = {
-    loading: "idle", 
+    loading: false, 
     data: null
   };
   
