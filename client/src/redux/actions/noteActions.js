@@ -26,4 +26,28 @@ export function createNote(content, parent_type, parent_id) {
         }
     }
 
- 
+
+export function updateNote(note_id, parent_id, text) {
+    return (dispatch) => {
+        fetch(`/notes/${note_id}`, { 
+                method: "PATCH", 
+                headers: { 
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                  text: text,
+                })
+            })
+        .then(r => {
+            if (r.ok){
+                r.json().then((note) => dispatch({ 
+                    type: "data/updateNote", 
+                    payload: {
+                        parent_id: parent_id,
+                        text: text
+                    }
+                }));
+            }
+        })
+        }
+    }

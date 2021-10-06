@@ -6,7 +6,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useDispatch } from 'react-redux'
-import { createNote } from "../redux/actions/noteActions";
+import { createNote, updateNote } from "../redux/actions/noteActions";
 
 
 export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, parent_id }) {
@@ -24,16 +24,7 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type, note, p
 
 function handleUpdateNote(){
   handleClick();
-  fetch(`/notes/${note.id}`, { 
-    method: "PATCH", 
-    headers: { 
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      text: noteContent,
-    })
-})
-.then(res => res.json());
+  dispatch(updateNote(note.id, parent_id, noteContent));
 }
 
 function handleDeleteNote(){
