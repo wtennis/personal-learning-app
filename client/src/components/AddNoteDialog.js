@@ -20,14 +20,12 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type, parent_
 
   function handleUpdateNote(){
     handleClick();
-    console.log('handleCreateNote in AddNoteDialog')
     dispatch(updateNote(target, parent_id, noteContent));
 }
 
 
   function handleDeleteNote(){
     handleClick();
-    console.log('handleDeleteNote in AddNoteDialog')
     dispatch(updateNote(target, parent_id, null));
   }
 
