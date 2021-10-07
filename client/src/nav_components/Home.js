@@ -48,7 +48,7 @@ function Home(){
     }
 
 return (
-  <>
+  <div>
   {!user.data?  
       <Box  display="flex"
             justifyContent="center"
@@ -82,10 +82,10 @@ return (
             <LernList contents={topFolders} paddingLeft={4}/>
           </Box>
         </Drawer>
-          <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+          <Box className="home-box"component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
               <Typography sx={{mb: 2}}variant="h4">Welcome, {user.data.username}</Typography>
-              <Box  display="flex"
+              <Box display="flex"
                 justifyContent="center"
                 alignItems="center"
                 minHeight="10vh"
@@ -107,7 +107,7 @@ return (
         </Box>
       </Box>
     }
-    </>
+    </div>
 );
 
 }
