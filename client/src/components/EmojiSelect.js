@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -30,7 +29,6 @@ const emojis = [
 ];
 
 export default function EmojiSelect({ emoji, setEmoji }) {
-  const theme = useTheme();
 
   return (
       <FormControl sx={{ m: 1, width: 300 }}>

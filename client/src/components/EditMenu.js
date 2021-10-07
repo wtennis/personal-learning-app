@@ -129,7 +129,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
           {item.note? "Open Note": "Add Note"}
         </MenuItem> 
 
-        {itemType == "Resource"? 
+        {itemType === "Resource"? 
             null 
           :
               <MenuItem onClick={() => handleAddNestedItem("Folder")} disableRipple>
@@ -137,7 +137,7 @@ export default function EditMenu( { item, renaming, setRenaming }) {
                 Add Folder
               </MenuItem> 
         }
-        {itemType == "Resource"? 
+        {itemType === "Resource"? 
             null 
           :
             <MenuItem onClick={() => handleAddNestedItem("Resource")} disableRipple>

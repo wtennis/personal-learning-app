@@ -3,8 +3,8 @@
     switch (action.type) {
         case "data/getData":
             return action.payload
-        case "data/getResources":
-            return state.concat(action.payload)
+        case "data/createFolder":
+            return [...state, action.payload]
         case "data/renameFolder":
             return state.map(item => {
                 if (!item.url && item.id === action.payload.id){
@@ -12,6 +12,11 @@
                 };
                     return item
             })
+        case "data/deleteFolder":
+            return state.filter((item) => item.url || item.id !== action.payload);
+
+        case "data/createResource":
+            return [...state, action.payload]
         case "data/renameResource":
             return state.map(item => {
                 if (item.url && item.id === action.payload.id){
@@ -19,12 +24,6 @@
                 };
                     return item
             })
-        case "data/createFolder":
-            return [...state, action.payload]
-        case "data/createResource":
-            return [...state, action.payload]
-        case "data/deleteFolder":
-            return state.filter((item) => item.url || item.id !== action.payload);
         case "data/deleteResource":
             return state.filter((item) => !item.url || item.id !== action.payload);
         case "data/updateNote":

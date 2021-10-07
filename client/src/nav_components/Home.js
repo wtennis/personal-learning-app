@@ -19,16 +19,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useSelector, useDispatch } from 'react-redux'
 import { getData } from "../redux/actions/dataActions";
+import { fetchSuggestion } from "../redux/actions/suggestionActions";
 
 
 function Home(){
     const drawerWidth = 400;
     const history = useHistory()
-    const [suggestion, setSuggestion] = React.useState("")
-    const user = useSelector((state) => state.user)
     const dispatch = useDispatch() 
+    const user = useSelector((state) => state.user)
     const topFolders = useSelector((state) => state.data.filter((item)=> !item.url && !item.parent_folder_id))
-  
+    const suggestion = useSelector((state) => state.suggestion)
+
+
   if(!user.data && user.status === "unfound"){
     history.push("/login");
   }
@@ -39,12 +41,9 @@ function Home(){
         }
       }, [user.data])
 
-      async function fetchSuggestion(){
-        let response = await fetch(`https://www.boredapi.com/api/activity?type=education`)
-        .then(r=> { if(r.ok) 
-            return r.json()
-        })
-        setSuggestion(response.activity)
+
+      async function handleFetchSuggestion(){
+        dispatch(fetchSuggestion())
     }
 
 return (
@@ -90,7 +89,7 @@ return (
                 alignItems="center"
                 minHeight="10vh"
                 >
-              <Button onClick={fetchSuggestion} variant="contained">Learning Suggestion</Button>
+              <Button onClick={handleFetchSuggestion} variant="contained">Learning Suggestion</Button>
               </Box> 
               <Box  display="flex"
                 justifyContent="center"
@@ -99,11 +98,14 @@ return (
                 mx="190px"
                 style={{backgroundColor: "#FFF6EC", borderRadius: "2em"}}
                 >
+                {suggestion.fetching? 
+                <CircularProgress /> 
+                :  
                 <Typography sx={{p: '22px'}}variant="h5">
-                  {suggestion}
-                </Typography>
+                  {suggestion.content}
+                </Typography>}
               </Box>
-              {suggestion.length>0? <Button target="_blank" href={"//www.google.com"}endIcon={<OpenInNewIcon/>}sx={{left: "70%"}}><h3 className="rainbow-text">Google it</h3></Button>:null}
+              {suggestion.content? <Button target="_blank" href={"//www.google.com"}endIcon={<OpenInNewIcon/>}sx={{left: "70%"}}><h3 className="rainbow-text">Google it</h3></Button>:null}
         </Box>
       </Box>
     }
