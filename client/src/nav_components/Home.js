@@ -85,10 +85,6 @@ return (
           <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
               <Typography sx={{mb: 2}}variant="h4">Welcome, {user.data.username}</Typography>
-              <Typography sx={{mb: 2}}variant="h4">topFolders:</Typography>
-              {topFolders.map(f => <li key={f.name}>{f.name}</li>)}
-              <Button onClick={console.log(topFolders)}>console.log topFolders</Button>
-
               <Box  display="flex"
                 justifyContent="center"
                 alignItems="center"
