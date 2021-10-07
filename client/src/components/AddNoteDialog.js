@@ -29,9 +29,15 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type, parent_
     dispatch(updateNote(target, parent_id, null));
   }
 
+  function handleKeyPress(e){
+    if (e.key === 'Enter') {
+      handleUpdateNote();
+    }
+  }
+
   return (
     <div>
-      <Dialog open={openDialog} onClose={handleClick}>
+      <Dialog open={openDialog} onClose={handleClick} onKeyPress={(e)=> handleKeyPress(e)}>
         <DialogContent>
         <TextareaAutosize
             aria-label="minimum height"

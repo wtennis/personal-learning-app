@@ -25,7 +25,7 @@ body {
 html {
   background: linear-gradient(300deg,#def1ff,#00a6db);
   background-size: 400% 400%;
-  animation: gradient-animation 200s ease infinite;
+  animation: gradient-animation 88s ease infinite;
 }
 
 @keyframes gradient-animation {

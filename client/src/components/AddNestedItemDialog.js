@@ -36,9 +36,15 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
     setIsPublic(event.target.checked);
   };
 
+  function handleKeyPress(e){
+    if (e.key === 'Enter') {
+      handleCreateResource();
+    }
+  }
+
   return (
     <div>
-      <Dialog open={openDialog} onClose={handleClick}>
+      <Dialog open={openDialog} onClose={handleClick} onKeyPress={(e)=> handleKeyPress(e)}>
         <DialogContent>
           <TextField
             autoFocus

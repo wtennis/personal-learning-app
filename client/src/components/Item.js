@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux"
 
 
 function Item({ item, paddingLeft}){
-    // const item = useSelector((state)=> state.data.find(item => item.id == itemId))
     const [renaming, setRenaming] = useState(false);
     const [itemName, setItemName] = useState(item.name);
     const dispatch = useDispatch();
