@@ -76,7 +76,6 @@ export function deleteItem(type, id) {
         }
     }
 
-
 export function updateNote(target, id, note) {
     return (dispatch) => {
         fetch(`/${target}/${id}`, {

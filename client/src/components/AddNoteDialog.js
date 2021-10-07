@@ -23,7 +23,6 @@ export default function AddNoteDialog({ openDialog, setOpenDialog, type, parent_
     dispatch(updateNote(target, parent_id, noteContent));
 }
 
-
   function handleDeleteNote(){
     handleClick();
     dispatch(updateNote(target, parent_id, null));
