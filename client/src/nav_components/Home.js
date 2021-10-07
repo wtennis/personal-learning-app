@@ -20,6 +20,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import { useSelector, useDispatch } from 'react-redux'
 import { getData } from "../redux/actions/dataActions";
 
+
 function Home(){
     const drawerWidth = 400;
     const history = useHistory()
@@ -27,7 +28,6 @@ function Home(){
     const user = useSelector((state) => state.user)
     const dispatch = useDispatch() 
     const topFolders = useSelector((state) => state.data.filter((item)=> !item.url && !item.parent_folder_id))
-
   
   if(!user.data && user.status === "unfound"){
     history.push("/login");
