@@ -56,6 +56,8 @@ export default function SignUp() {
   };
 
   return (
+    <div>
+    <h1 className="Lern-main-header">Lern</h1>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -117,10 +119,6 @@ export default function SignUp() {
               <Grid item xs={12}>
               </Grid>
             </Grid>
-            <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
-              label="Remember me"
-            />
             <Button
               type="submit"
               fullWidth
@@ -140,5 +138,6 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
+      </div>
   );
 }
