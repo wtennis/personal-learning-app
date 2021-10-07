@@ -25,7 +25,6 @@ function ExpandableItem({ itemId, paddingLeft}){
         if (!renaming){
             setOpen(!open);
         }
-        console.log(contents)
       };
 
       const handleRename = (e) => {        
