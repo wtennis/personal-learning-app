@@ -34,12 +34,18 @@ export default function AddFolderDialog() {
     setIsPublic(event.target.checked);
   };
 
+  function handleKeyPress(e){
+    if (e.key === 'Enter') {
+      handleCreate();
+    }
+  }
+
   return (
     <div>
       <IconButton variant="outlined" onClick={handleClick}>
         <CreateNewFolderIcon/>
       </IconButton>
-      <Dialog open={open} onClose={handleClick}>
+      <Dialog open={open} onClose={handleClick} onKeyPress={(e)=> handleKeyPress(e)}>
         <DialogContent>
           <TextField
             autoFocus
