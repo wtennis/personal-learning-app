@@ -27,10 +27,10 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
     dispatch(createFolder(itemName, emoji, isPublic, parent_id));
 }
 
-    function handleCreateResource(){
-        handleClick();
-        dispatch(createResource(itemName, emoji, url, parent_id));
-    }
+  function handleCreateResource(){
+      handleClick();
+      dispatch(createResource(itemName, emoji, url, parent_id));
+  }
 
   const handleChange = (event) => {
     setIsPublic(event.target.checked);
@@ -38,7 +38,10 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
 
   function handleKeyPress(e){
     if (e.key === 'Enter') {
-      handleCreateResource();
+      type === "Resource" ?
+      handleCreateResource()
+      :
+      handleCreateFolder()
     }
   }
 
@@ -76,7 +79,7 @@ export default function AddNestedItemDialog({ parent_id, openDialog, setOpenDial
                 label="public"
                 />
         }
-        {type === "resource" ? null : "public"}
+        {type === "Resource" ? null : "public"}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClick}>Cancel</Button>
