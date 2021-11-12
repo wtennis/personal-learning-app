@@ -3,6 +3,11 @@
 
 Lern is an app to help with saving and organizing resources to pursue personal learning goals
 
+To play around with the app, go to: https://personal-learning-app.herokuapp.com/login
+
+Demo: https://www.loom.com/share/0462cef9bb024bfb875b5ad04263ab4b
+
+
 ## Requirements
 
 - Ruby 2.7.4
